@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-transparent navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,16 +16,38 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("MyFoldering.com", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Mis tareas", "Index", "Home")
+                        <ul class="navbar-sub">
+                            <li>Mis tareas</li>
+                            <li>
+                                Crear Tarea
+                            </li>
+                        </ul>
+                    
+                    </li>
+                    <li>@Html.ActionLink("Mis carpetas", "About", "Home")</li>
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs side-nav">
+        <ul class="main-ul">
+            <li>Carpeta 1
+                <ul>
+                    <li>tarea 1</li>
+                    <li>Tarea 2</li>
+                    <li>Tarea 3</li>
+                </ul>
+            
+            </li>
+            <li>Carpeta 2</li>
+            <li>Carpeta 3</li>
+            <li>Carpeta 4</li>
+        </ul>
     </div>
     <div class="container body-content">
         @RenderBody()

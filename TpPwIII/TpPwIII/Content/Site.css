@@ -3,8 +3,17 @@
     padding-bottom: 20px;
 }
 
+.none-padding-top{
+    padding:0 !important;
+}
+
+.no-overflow{
+    overflow-y:hidden;
+    overflow-x:hidden;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-left:18%;
     padding-left: 15px;
     padding-right: 15px;
 }

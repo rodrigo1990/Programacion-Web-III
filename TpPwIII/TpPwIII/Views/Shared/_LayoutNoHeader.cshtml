@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/google-apis")
+   
+
+</head>
+<body class="none-padding-top no-overflow">
+    <a  class="background-title" onclick="mostrarModal();"><h1>MYFOLDERING.COM</h1></a>
+ 
+
+    @RenderBody()
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/animacionesEnModal")
+    @Scripts.Render("~/bundles/validar-registro-usuario")
+    @Scripts.Render("~/bundles/validar-login-usuario")
+    @RenderSection("scripts", required: false)
+    <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+
+</body>
+</html>
