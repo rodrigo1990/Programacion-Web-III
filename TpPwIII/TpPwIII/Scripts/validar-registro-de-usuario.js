@@ -85,16 +85,21 @@
         }
 
     
-    }else if (confirmPass != pass) {
-        if ($("#pass-confirm-error").hasClass("none-opacity")) {
+    } else if (confirmPass != pass)
+    {
+        if ($("#pass-confirm-error").hasClass("none-opacity"))
+        {
             $("#pass-confirm-error").removeClass("none-opacity");
             $("#pass-confirm-error").addClass("full-opacity");
 
-            setTimeout(function () {
+            setTimeout(function ()
+            {
                 $("#pass-confirm-error").removeClass("full-opacity");
                 $("#pass-confirm-error").addClass("none-opacity");
             }, 5000);
-        } else {
+        }
+        else
+        {
             $("#pass-confirm-error").addClass("full-opacity");
 
             setTimeout(function () {
@@ -103,8 +108,28 @@
             }, 5000);
         }
     } else if (grecaptcha.getResponse() == "") {
+
+        if ($("captcha-error").hasClass("none-opacity")) {
+            $("#captcha-error").removeClass("none-opacity");
+            $("#captcha-error").addClass("full-opacity");
+
+            setTimeout(function () {
+                $("#captcha-error").removeClass("full-opacity");
+                $("#captcha-error").addClass("none-opacity");
+            }, 5000);
+        }
+        else {
+            $("#captcha-error").addClass("full-opacity");
+
+            setTimeout(function () {
+                $("#captcha-error").removeClass("full-opacity");
+                $("#captcha-error").addClass("none-opacity");
+            }, 5000);
+        }
+
         $("#captcha-error").css("display", "block");
     } else {
+
         $("#captcha-error").css("display", "none");
 
     }

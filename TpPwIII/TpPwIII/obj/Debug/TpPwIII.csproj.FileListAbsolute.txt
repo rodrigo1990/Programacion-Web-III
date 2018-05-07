@@ -89,3 +89,4 @@ C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.csproj.C
 C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.csproj.CopyComplete
 C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.dll
 C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.pdb
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\roslyn\desktop.ini
