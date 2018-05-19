@@ -13,9 +13,9 @@ namespace TpPwIII.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Home()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Esto sera le home una vez logeado el usuario";
 
             return View();
         }

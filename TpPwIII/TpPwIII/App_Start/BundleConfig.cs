@@ -23,9 +23,19 @@ namespace TpPwIII
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/animacionesEnModal").Include(
+                      "~/Scripts/manejoDeAnimacionesEnModal.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/validar-registro-usuario").Include(
+                      "~/Scripts/validar-registro-de-usuario.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/validar-login-usuario").Include(
+                      "~/Scripts/validar-login-de-usuario.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/estilos.css"));
         }
     }
 }
