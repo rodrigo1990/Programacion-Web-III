@@ -15,7 +15,6 @@ namespace TpPwIII.Controllers
 
         public ActionResult Home()
         {
-            ViewBag.Message = "Esto sera le home una vez logeado el usuario";
 
             return View();
         }

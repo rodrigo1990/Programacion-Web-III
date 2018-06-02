@@ -32,6 +32,9 @@ namespace TpPwIII
             bundles.Add(new ScriptBundle("~/bundles/validar-login-usuario").Include(
                       "~/Scripts/validar-login-de-usuario.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/eventos-menu").Include(
+                      "~/Scripts/eventos-menu.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",

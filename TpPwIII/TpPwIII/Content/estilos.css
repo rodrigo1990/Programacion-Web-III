@@ -22,6 +22,8 @@ body {
     z-index:2;
     display:none;
 }
+
+
 .navbar-transparent {
     background-color: rgba(0, 0, 0, 0.075);
     border-color: #c1c1c1;
@@ -30,6 +32,10 @@ body {
 
 .navbar-transparent ul li a {
     color: #999999;
+}
+
+.navbar-transparent ul li a {
+    text-decoration:none;
 }
 
 .navbar-transparent  a {
@@ -226,11 +232,30 @@ ul.slide2 {
 .navbar-sub {
     position: absolute;
     width: 212px;
-    background-color: #cecece;
+    background-color: #c1c1c1;
     /* border-color: #c1c1c1; */
     border: 1px solid #c1c1c1;
     box-shadow: 1px 18px 59px grey;
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
 }
+
+.navbar-sub li {
+    width:100%;
+    cursor:pointer;
+    padding:10px;
+}
+
+    .navbar-sub li:not(:last-child) {
+        width: 100%;
+        cursor: pointer;
+        border-bottom: 1px solid #b3b3b3;
+    }
+
+    .navbar-sub li:hover {
+        background-color: #eeeeee;
+    }
 
 #capatcha {
     width: 50% !important;
@@ -238,3 +263,4 @@ ul.slide2 {
     margin-right: auto;
     display: block;
 }
+
