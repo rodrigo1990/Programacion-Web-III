@@ -11,8 +11,8 @@
 
 </head>
 <body class="none-padding-top no-overflow">
-    <a  class="background-title" onclick="mostrarModal();"><h1>MYFOLDERING.COM</h1></a>
- 
+    <a class="background-title" onclick="mostrarModal();"><h1>MYFOLDERING.COM</h1></a>
+
 
     @RenderBody()
 
@@ -22,10 +22,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/animacionesEnModal")
-    @Scripts.Render("~/bundles/validar-registro-usuario")
     @Scripts.Render("~/bundles/validar-login-usuario")
+    @Scripts.Render("~/bundles/validar-captcha")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/unobstrusive")
     @RenderSection("scripts", required: false)
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
+    <script>
+
+    </script>
 
 </body>
 </html>

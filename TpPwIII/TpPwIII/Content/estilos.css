@@ -264,3 +264,10 @@ ul.slide2 {
     display: block;
 }
 
+.text-danger {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+

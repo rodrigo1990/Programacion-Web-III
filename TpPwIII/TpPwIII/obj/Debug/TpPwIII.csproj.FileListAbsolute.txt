@@ -90,3 +90,13 @@ C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.csproj.C
 C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.dll
 C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\obj\Debug\TpPwIII.pdb
 C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\roslyn\desktop.ini
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\EntityFramework.dll
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\EntityFramework.SqlServer.dll
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\EntityFramework.xml
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\EntityFramework.SqlServer.xml
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\Microsoft.Web.Helpers.dll
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\WebMatrix.Data.dll
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\WebMatrix.WebData.dll
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\WebMatrix.Data.xml
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\WebMatrix.WebData.xml
+C:\Users\Rodrigo Producciones\GitRepo\TpPwIII\TpPwIII\bin\reCAPTCHA.MVC.dll

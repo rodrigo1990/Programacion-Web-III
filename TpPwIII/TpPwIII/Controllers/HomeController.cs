@@ -8,21 +8,9 @@ namespace TpPwIII.Controllers
 {
     public class HomeController : Controller
     {
+        // GET: Home
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult Home()
-        {
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
