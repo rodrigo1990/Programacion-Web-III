@@ -18,29 +18,39 @@
                     <div class="slider-checkout">
                         <ul id="slider"class="normal">
                             <li>
-                                <form class="">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control input-center input-big" id="user" name="user" value="" placeholder="Ingrese su email" /><br />
-                                        <div class="form-error" id="login-email-error">Ingrese un email valido</div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control input-center input-big" id="login-pass" name="pass" placeholder="Ingrese su password" value="" /><br />
-                                        <div class="form-error" id="login-pass-error">Contraseña invalida</div>
-                                    </div>
+                         @using (Html.BeginForm("LoguearUsuario", "Usuario", FormMethod.Post))
+                            {
+                            @Html.AntiForgeryToken()
 
-                                    <a class="btn btn-primary button-form-modal" onclick="validarFormularioDeLoginDeUsuario();">Ingresar</a>
-                                     <br />
-                                    <div class="text-center">
-                                        <a class="ir-slide-1">
-                                            <h5>¿Todavía no estas registrado?</h5>
-                                        </a>
-                                    </div>
+                                <div class="form-group">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-center", @placeholder = "Ingrese su Email" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    <!--<input type="text" class="form-control input-center input-big" id="user" name="user" value="" placeholder="Ingrese su email" /><br />
+    <div class="form-error" id="login-email-error">Ingrese un email valido</div>-->
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(model => model.Contrasenia, new { @class = "form-control input-center", @placeholder = "Ej: Carlo20010" })
+                                    @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "text-danger" })
+                                    <!--<input type="password" class="form-control input-center input-big" id="login-pass" name="pass" placeholder="Ingrese su password" value="" /><br />
+    <div class="form-error" id="login-pass-error">Contraseña invalida</div>-->
+                                </div>
+                                <h5 class="text-danger">
+                                    @ViewBag.estadoLogin
+                                </h5>
 
-                                </form>
+                            <button class="btn btn-primary button-form-modal">Ingresar</button>
+                            <br />
+                            <div class="text-center">
+                                <a class="ir-slide-1">
+                                    <h5>¿Todavía no estas registrado?</h5>
+                                </a>
+                            </div>
+
+                           }
                             </li>
                             <li>
                                 @using (Html.BeginForm("registrarUsuario", "Usuario", FormMethod.Post))
-                                 {
+                                {
                                    @Html.AntiForgeryToken()
 
 
@@ -63,13 +73,13 @@
                             </div>
 
                             <div class="form-group">
-                                @Html.PasswordFor(model => model.Contrasenia, new {  @class = "form-control input-center", @placeholder = "Ej: Carlo20010"  })
+                                @Html.PasswordFor(model => model.Contrasenia, new { @class = "form-control input-center", @placeholder = "Ej: Carlo20010" })
                                 @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "text-danger" })
                                 <div class="form-error" id="pass-error">MAX : 20 caracteres ,mayuscula y numero obligatorio</div>
                             </div>
 
                             <div class="form-group">
-                                @Html.PasswordFor(model => model.ConfirmPass, new { @class = "form-control input-center",@placeholder="Repita su contraseña" })
+                                @Html.PasswordFor(model => model.ConfirmPass, new { @class = "form-control input-center", @placeholder = "Repita su contraseña" })
 
                                 @Html.ValidationMessageFor(model => model.ConfirmPass, "", new { @class = "text-danger" })
                                 <div class="form-error" id="pass-confirm-error">Ambas contraseñas no coinciden</div>

@@ -17,5 +17,11 @@ namespace TpPwIII
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Session_Start(Object sender, EventArgs e)
+        {
+            Session["IdUsuario"] = String.Empty;
+            Session["Email"] = String.Empty;
+            Session["Contrasenia"] = String.Empty;
+        }
     }
 }

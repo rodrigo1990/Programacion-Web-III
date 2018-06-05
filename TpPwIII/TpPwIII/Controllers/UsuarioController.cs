@@ -10,7 +10,7 @@ namespace TpPwIII.Controllers
 {
     public class UsuarioController : Controller
     {
-        UsuarioRepository ur = new UsuarioRepository();
+        UsuarioRepository usuarioRepository = new UsuarioRepository();
 
 
         public ActionResult Index()
@@ -18,12 +18,28 @@ namespace TpPwIII.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Home()
         {
-            ViewBag.Message = "Your contact page.";
+            if (!string.IsNullOrEmpty(Session["Email"] as string) 
+                || 
+                !string.IsNullOrEmpty(Session["Contrasenia"] as string)
+                ||
+                !string.IsNullOrEmpty(Session["IdUsuario"] as string)
+                )
+            {
+                
+                return View();
+            }
+            else
+            {
+                return  RedirectToAction("Index");
+            }
 
-            return View();
+
         }
+
+        
+
         [HttpPost]
         [CaptchaValidator(
         PrivateKey = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
@@ -35,7 +51,7 @@ namespace TpPwIII.Controllers
             
             if (ModelState.IsValid)
             {
-                ur.insertarUsuario(usu);
+                usuarioRepository.insertarUsuario(usu);
                 
                 ViewBag.titulo = "¡Enhorabuena! te has registrado exitosamente";
                 return View("Landing_Registrar_Usuario");
@@ -46,5 +62,47 @@ namespace TpPwIII.Controllers
 
 
         }
+    
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LoguearUsuario(Usuario usu)
+        {
+            UsuarioLoginValidator uv = new UsuarioLoginValidator();
+            Usuario usuarioEncontrado = usuarioRepository.BuscarUsuario(usu);
+
+            if (uv.ValidarLogin(usu) == true)
+            {
+                //El usuario se encuentra registrado y activo
+                if (usuarioEncontrado.EstadoLogin == 1)
+                {
+                    
+                    Session["IdUsuario"] = usuarioEncontrado.IdUsuario;
+                    Session["Email"] = usuarioEncontrado.Email;
+                    Session["Contrasenia"] = usuarioEncontrado.Contrasenia;
+                    return RedirectToAction("Home");
+                }//El usuario se encuentra registrado pero inactivo
+                else if (usuarioEncontrado.EstadoLogin == 2)
+                {
+                    ViewBag.estadoLogin = "Usuario inactivo";
+                    return View("Index");
+
+                }else if (usuarioEncontrado.EstadoLogin == 3) //El usuario no se encuentra registrado y/o su email y contraseña no coinciden
+                {
+                    ViewBag.estadoLogin = "Verifique usuario y/o contraseña";
+                    return View("Index");
+
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
+            else
+            {
+                ViewBag.estadoLogin = "Verifique usuario y/o contraseña";
+                return View("Index");
+            }
+
+        }//FUNCTION
     }
 }

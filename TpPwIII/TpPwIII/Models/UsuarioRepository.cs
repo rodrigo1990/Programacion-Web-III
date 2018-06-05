@@ -38,6 +38,37 @@ namespace TpPwIII.Models
 
 
 
+        }//function
+
+        public Usuario BuscarUsuario(Usuario usu)
+        {
+            Usuario u = ctx.Usuarios.Where(o => o.Email == usu.Email)
+                                    .Where(o => o.Contrasenia == usu.Contrasenia)
+                                    .FirstOrDefault();
+
+            if (u != null)
+            {
+                if (u.Activo != 0)
+                {
+                    //El usuario se encuentra registrado y activo
+                    u.EstadoLogin = 1;
+                    return u;
+                }
+                else
+                {
+                    //El usuario se encuentra registrado pero inactivo
+                    u.EstadoLogin = 2;
+                    return u;
+                }
+            }
+            else
+            {
+                //El usuario no se encuentra registrado y/o su email y contraseña no coinciden
+                u.EstadoLogin = 3;
+                return u;
+            }
+
         }
-    }
-}
+
+    }//class
+}//namespace

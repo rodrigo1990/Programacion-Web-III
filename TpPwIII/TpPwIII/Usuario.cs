@@ -19,23 +19,31 @@ namespace TpPwIII
         [Required(ErrorMessage ="Ingrese un nombre")]
         [StringLength(50,MinimumLength =1,ErrorMessage ="Ingrese un nombre de como maximo 50 caracteres")]
         public string Nombre { get; set; }
+
         [Required(ErrorMessage = "Ingrese un apellido")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "Ingrese un apellido de como maximo 50 caracteres")]
         public string Apellido { get; set; }
+
+        [Display(Name = "Email address")]
         [Required(ErrorMessage ="Ingrese un email")]
-        [DataType(DataType.EmailAddress,ErrorMessage ="Ingrese un email valido")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Ingrese un email valido Ej: prueba@myfoldering.com")]
         public string Email { get; set; }
+
         [Required(ErrorMessage ="Ingrese una contraseña")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$", ErrorMessage = "Ingrese una contraseña que tenga una minuscula, una mayuscula y un numero")]
         public string Contrasenia { get; set; }
+
         [Required(ErrorMessage ="Confirme su contraseña")]
         [CompareAttribute("Contrasenia", ErrorMessage = "Los dos campos no son iguales")]
         [NotMapped]
         public string ConfirmPass { get; set; }
+
         public short Activo { get; set; }
         public System.DateTime FechaRegistracion { get; set; }
         public Nullable<System.DateTime> FechaActivacion { get; set; }
         public string CodigoActivacion { get; set; }
+
+        [NotMapped]
+        public int EstadoLogin { get; set; }
     }
 }
