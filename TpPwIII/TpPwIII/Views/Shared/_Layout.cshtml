@@ -20,34 +20,37 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Mis tareas", "Index", "Home")
-                        <ul class="navbar-sub">
-                            <li>Mis tareas</li>
+                    <li >
+
+                        <a id="mis-tareas">Mis tareas</a>
+
+                        <ul class="navbar-sub" id="mis-tareas-sub">
+                            <li>@Html.ActionLink("Mis tareas", "Index", "Home")</li>
                             <li>
-                                Crear Tarea
+                                @Html.ActionLink("Crear tarea", "Index", "Home")
+                            </li >
+                        </ul>
+
+                    </li>
+                    <li id="mis-carpetas">
+                        <a  id="mis-carpetas">Mis carpetas</a>
+
+                        <ul class="navbar-sub" id="mis-carpetas-sub">
+                            <li>@Html.ActionLink("Mis carpetas", "Index", "Home")</li>
+                            <li>
+                                @Html.ActionLink("Crear carpeta", "Index", "Home")
                             </li>
                         </ul>
-                    
+
                     </li>
-                    <li>@Html.ActionLink("Mis carpetas", "About", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs side-nav">
-        <ul class="main-ul">
-            <li>Carpeta 1
-                <ul>
-                    <li>tarea 1</li>
-                    <li>Tarea 2</li>
-                    <li>Tarea 3</li>
-                </ul>
-            
-            </li>
-            <li>Carpeta 2</li>
-            <li>Carpeta 3</li>
-            <li>Carpeta 4</li>
-        </ul>
+        @{
+            @Html.Partial("Lista_de_tareas")
+        }
     </div>
     <div class="container body-content">
         @RenderBody()
@@ -59,6 +62,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/eventos-menu")
     @RenderSection("scripts", required: false)
 </body>
 </html>
