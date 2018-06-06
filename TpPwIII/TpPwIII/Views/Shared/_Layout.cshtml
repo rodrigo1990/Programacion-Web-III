@@ -20,7 +20,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li >
+                    <li>
 
                         <a id="mis-tareas">Mis tareas</a>
 
@@ -28,23 +28,33 @@
                             <li>@Html.ActionLink("Mis tareas", "Index", "Home")</li>
                             <li>
                                 @Html.ActionLink("Crear tarea", "Index", "Home")
-                            </li >
+                            </li>
                         </ul>
 
                     </li>
                     <li id="mis-carpetas">
-                        <a  id="mis-carpetas">Mis carpetas</a>
+                        <a id="mis-carpetas">Mis carpetas</a>
 
                         <ul class="navbar-sub" id="mis-carpetas-sub">
                             <li>@Html.ActionLink("Mis carpetas", "Index", "Home")</li>
                             <li>
                                 @Html.ActionLink("Crear carpeta", "Index", "Home")
                             </li>
+
                         </ul>
 
                     </li>
+                    <li class="cerrar-sesion">
+                        @Html.ActionLink("Cerrar sesion", "CerrarSesion", "Usuario")
+                    </li>
                 </ul>
             </div>
+
+            <div>
+            </div>
+
+
+
         </div>
     </div>
     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs side-nav">

@@ -19,7 +19,6 @@ namespace TpPwIII
         }
         protected void Session_Start(Object sender, EventArgs e)
         {
-            Session["IdUsuario"] = String.Empty;
             Session["Email"] = String.Empty;
             Session["Contrasenia"] = String.Empty;
         }

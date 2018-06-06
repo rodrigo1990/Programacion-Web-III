@@ -15,6 +15,17 @@ namespace TpPwIII.Controllers
 
         public ActionResult Index()
         {
+            HttpCookieCollection MyCookieCollection = Request.Cookies;
+            HttpCookie MyCookie = MyCookieCollection.Get("UsuarioCookies");
+
+            if (MyCookie != null)
+            {
+                Session["Email"] = MyCookie["Email"];
+                Session["Contrasenia"] = MyCookie["Contrasenia"];
+
+                return RedirectToAction("Home");
+            }
+
             return View();
         }
 
@@ -27,7 +38,7 @@ namespace TpPwIII.Controllers
                 !string.IsNullOrEmpty(Session["IdUsuario"] as string)
                 )
             {
-                
+
                 return View();
             }
             else
@@ -76,10 +87,23 @@ namespace TpPwIII.Controllers
                 if (usuarioEncontrado.EstadoLogin == 1)
                 {
                     
-                    Session["IdUsuario"] = usuarioEncontrado.IdUsuario;
                     Session["Email"] = usuarioEncontrado.Email;
                     Session["Contrasenia"] = usuarioEncontrado.Contrasenia;
+
+                    if (usu.RecordarUsuario == true)
+                    { 
+
+                        HttpCookie myCookie = new HttpCookie("UsuarioCookies");
+                        myCookie["Email"] = Session["Email"].ToString();
+                        myCookie["Contrasenia"] = Session["Contrasenia"].ToString();
+                        myCookie["RecordarUsuario"] = "1";
+
+                        myCookie.Expires = DateTime.Now.AddDays(30d);
+                        Response.Cookies.Add(myCookie);
+                    }
+
                     return RedirectToAction("Home");
+
                 }//El usuario se encuentra registrado pero inactivo
                 else if (usuarioEncontrado.EstadoLogin == 2)
                 {
@@ -104,5 +128,16 @@ namespace TpPwIII.Controllers
             }
 
         }//FUNCTION
+
+        public ActionResult CerrarSesion()
+        {
+            if (Request.Cookies["UsuarioCookies"] != null)
+            {
+                Response.Cookies["UsuarioCookies"].Expires = DateTime.Now.AddDays(-1);
+            }
+       
+            return View("Index");
+        }
+
     }
 }

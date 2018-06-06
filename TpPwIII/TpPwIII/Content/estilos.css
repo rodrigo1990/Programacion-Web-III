@@ -271,3 +271,7 @@ ul.slide2 {
     display: block;
 }
 
+.cerrar-sesion{
+    float:right !important;
+}
+
