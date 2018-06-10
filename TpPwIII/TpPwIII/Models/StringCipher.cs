@@ -52,7 +52,7 @@ namespace EncryptStringSample
             }
         }
 
-        public static string Decrypt(string cipherText, string passPhrase)
+        public static string Decrypt(string cipherText, string passPhrase = "TrabaJoPrAcTiCo20181c")
         {
             // Get the complete stream of bytes that represent:
             // [32 bytes of Salt] + [32 bytes of IV] + [n bytes of CipherText]

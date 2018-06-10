@@ -21,10 +21,22 @@ namespace TpPwIII.Controllers
 
             if (MyCookie != null)
             {
-                Session["Email"] = MyCookie["Email"];
-                Session["Contrasenia"] = MyCookie["Contrasenia"];
+                
+                Usuario usuario = new Usuario();
 
-                return RedirectToAction("Home");
+                usuario.Email = StringCipher.Decrypt(MyCookie["Email"]);
+                usuario.Contrasenia = StringCipher.Decrypt(MyCookie["Contrasenia"]);
+
+                Usuario usuarioEncontrado=usuarioRepository.BuscarUsuario(usuario);
+
+                if (usuarioEncontrado.EstadoLogin == 1) { 
+                
+                    Session["Email"] = MyCookie["Email"];
+                    Session["Contrasenia"] = MyCookie["Contrasenia"];
+
+                    return RedirectToAction("Home");
+
+                }
             }
 
             return View();
