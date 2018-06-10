@@ -190,6 +190,7 @@
     </Compile>
     <Compile Include="Models\CarpetaController.cs" />
     <Compile Include="Models\SessionValidatorcs.cs" />
+    <Compile Include="Models\StringCipher.cs" />
     <Compile Include="Models\TareaRepository.cs" />
     <Compile Include="Models\UsuarioLoginValidator.cs" />
     <Compile Include="Models\UsuarioRepository.cs" />

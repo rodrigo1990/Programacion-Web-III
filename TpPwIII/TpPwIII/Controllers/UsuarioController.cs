@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using reCAPTCHA.MVC;
 using TpPwIII.Models;
+using EncryptStringSample;
 
 namespace TpPwIII.Controllers
 {
@@ -86,13 +87,13 @@ namespace TpPwIII.Controllers
                 //El usuario se encuentra registrado y activo
                 if (usuarioEncontrado.EstadoLogin == 1)
                 {
-                    
-                    Session["Email"] = usuarioEncontrado.Email;
-                    Session["Contrasenia"] = usuarioEncontrado.Contrasenia;
+                    //Creo la sesion con la informacion encriptada
+                    Session["Email"] = StringCipher.Encrypt(usuarioEncontrado.Email);
+                    Session["Contrasenia"] = StringCipher.Encrypt(usuarioEncontrado.Contrasenia);
 
                     if (usu.RecordarUsuario == true)
                     { 
-
+                        //Creo las cookies se llenan con los datos de sesion
                         HttpCookie myCookie = new HttpCookie("UsuarioCookies");
                         myCookie["Email"] = Session["Email"].ToString();
                         myCookie["Contrasenia"] = Session["Contrasenia"].ToString();
