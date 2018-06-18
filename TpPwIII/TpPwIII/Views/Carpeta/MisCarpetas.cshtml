@@ -1,0 +1,17 @@
+﻿@model Carpeta
+@{
+    ViewBag.Title = "MisCarpetas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+<h1>@ViewBag.estado</h1>
+<h2>MisCarpetas</h2>
+
+@foreach(Carpeta carpeta in ViewBag.Carpetas)
+{
+    @Html.ActionLink(@carpeta.Nombre, "MostrarTarea","Tarea",new{idCarpeta=carpeta.IdCarpeta },null)
+    
+    <br />
+}
+

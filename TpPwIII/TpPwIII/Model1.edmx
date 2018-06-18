@@ -135,7 +135,7 @@
           <EntitySet Name="ArchivoTarea" EntityType="Self.ArchivoTarea" />
           <EntitySet Name="Carpetas" EntityType="Self.Carpeta" />
           <EntitySet Name="ComentarioTarea" EntityType="Self.ComentarioTarea" />
-          <EntitySet Name="Tarea" EntityType="Self.Tarea" />
+          <EntitySet Name="Tareas" EntityType="Self.Tarea" />
           <EntitySet Name="Usuarios" EntityType="TareasModel.Usuario" />
         </EntityContainer>
       </Schema>
@@ -175,7 +175,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Tarea">
+          <EntitySetMapping Name="Tareas">
             <EntityTypeMapping TypeName="TareasModel.Tarea">
               <MappingFragment StoreEntitySet="Tarea">
                 <ScalarProperty Name="IdTarea" ColumnName="IdTarea" />

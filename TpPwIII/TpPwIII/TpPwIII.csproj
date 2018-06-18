@@ -167,7 +167,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CarpetaController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TareaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -188,9 +187,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\CarpetaController.cs" />
-    <Compile Include="Models\SessionValidatorcs.cs" />
-    <Compile Include="Models\StringCipher.cs" />
+    <Compile Include="Models\CarpetaRepository.cs" />
+    <Compile Include="Models\SessionValidator.cs" />
+    <Compile Include="Models\Cipher.cs" />
     <Compile Include="Models\TareaRepository.cs" />
     <Compile Include="Models\UsuarioLoginValidator.cs" />
     <Compile Include="Models\UsuarioRepository.cs" />
@@ -262,12 +261,13 @@
     <Content Include="Views\Shared\_LayoutNoHeader.cshtml" />
     <Content Include="Views\Shared\Lista_de_tareas.cshtml" />
     <Content Include="Views\Usuario\Landing_registrar_usuario.cshtml" />
+    <Content Include="Views\Carpeta\CrearForm.cshtml" />
+    <Content Include="Views\Carpeta\MisCarpetas.cshtml" />
+    <Content Include="Views\Tarea\MostrarTarea.cshtml" />
+    <Content Include="Views\Tarea\CrearForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Carpeta\" />
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Tarea\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using reCAPTCHA.MVC;
 using TpPwIII.Models;
-using EncryptStringSample;
+using EncryptData;
 
 namespace TpPwIII.Controllers
 {
     public class UsuarioController : Controller
     {
         UsuarioRepository usuarioRepository = new UsuarioRepository();
-
+        SessionValidator sv = new SessionValidator();
 
         public ActionResult Index()
         {
@@ -24,13 +24,13 @@ namespace TpPwIII.Controllers
                 
                 Usuario usuario = new Usuario();
 
-                usuario.Email = StringCipher.Decrypt(MyCookie["Email"]);
-                usuario.Contrasenia = StringCipher.Decrypt(MyCookie["Contrasenia"]);
+                usuario.Email = Cipher.DecryptString(MyCookie["Email"]);
+                usuario.Contrasenia = Cipher.DecryptString(MyCookie["Contrasenia"]);
 
                 Usuario usuarioEncontrado=usuarioRepository.BuscarUsuario(usuario);
 
-                if (usuarioEncontrado.EstadoLogin == 1) { 
-                
+                if (usuarioEncontrado.EstadoLogin == 1) {
+                    Session["ID"] = MyCookie["ID"];
                     Session["Email"] = MyCookie["Email"];
                     Session["Contrasenia"] = MyCookie["Contrasenia"];
 
@@ -44,20 +44,16 @@ namespace TpPwIII.Controllers
 
         public ActionResult Home()
         {
-            if (!string.IsNullOrEmpty(Session["Email"] as string) 
-                || 
-                !string.IsNullOrEmpty(Session["Contrasenia"] as string)
-                ||
-                !string.IsNullOrEmpty(Session["IdUsuario"] as string)
-                )
+            if (sv.ValidarSesion() == true)
             {
-
                 return View();
             }
             else
             {
-                return  RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
+
+            
 
 
         }
@@ -100,13 +96,15 @@ namespace TpPwIII.Controllers
                 if (usuarioEncontrado.EstadoLogin == 1)
                 {
                     //Creo la sesion con la informacion encriptada
-                    Session["Email"] = StringCipher.Encrypt(usuarioEncontrado.Email);
-                    Session["Contrasenia"] = StringCipher.Encrypt(usuarioEncontrado.Contrasenia);
+                    Session["ID"] = usuarioEncontrado.IdUsuario;
+                    Session["Email"] = Cipher.EncryptString(usuarioEncontrado.Email);
+                    Session["Contrasenia"] = Cipher.EncryptString(usuarioEncontrado.Contrasenia);
 
                     if (usu.RecordarUsuario == true)
                     { 
                         //Creo las cookies se llenan con los datos de sesion
                         HttpCookie myCookie = new HttpCookie("UsuarioCookies");
+                        myCookie["ID"] = Session["ID"].ToString();
                         myCookie["Email"] = Session["Email"].ToString();
                         myCookie["Contrasenia"] = Session["Contrasenia"].ToString();
                         myCookie["RecordarUsuario"] = "1";
@@ -148,7 +146,7 @@ namespace TpPwIII.Controllers
             {
                 Response.Cookies["UsuarioCookies"].Expires = DateTime.Now.AddDays(-1);
             }
-       
+            Session.Abandon();
             return View("Index");
         }
 

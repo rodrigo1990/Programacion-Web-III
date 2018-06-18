@@ -11,12 +11,18 @@ namespace TpPwIII
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Carpeta
     {
         public int IdCarpeta { get; set; }
         public Nullable<int> IdUsuario { get; set; }
+
+        [Required(ErrorMessage ="Ingrese un nombre")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Ingrese un nombre de como maximo 50 caracteres")]
         public string Nombre { get; set; }
+        [StringLength(200, MinimumLength = 1, ErrorMessage = "Ingrese un nombre de como maximo 200 caracteres")]
         public string Descripcion { get; set; }
         public System.DateTime FechaCreacion { get; set; }
     }

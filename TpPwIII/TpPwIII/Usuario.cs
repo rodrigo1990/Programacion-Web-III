@@ -12,12 +12,12 @@ namespace TpPwIII
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    
+
     public partial class Usuario
     {
         public int IdUsuario { get; set; }
-        [Required(ErrorMessage ="Ingrese un nombre")]
-        [StringLength(50,MinimumLength =1,ErrorMessage ="Ingrese un nombre de como maximo 50 caracteres")]
+        [Required(ErrorMessage = "Ingrese un nombre")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Ingrese un nombre de como maximo 50 caracteres")]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "Ingrese un apellido")]
@@ -25,15 +25,15 @@ namespace TpPwIII
         public string Apellido { get; set; }
 
         [Display(Name = "Email address")]
-        [Required(ErrorMessage ="Ingrese un email")]
+        [Required(ErrorMessage = "Ingrese un email")]
         [EmailAddress(ErrorMessage = "Ingrese un email valido Ej: prueba@myfoldering.com")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage ="Ingrese una contraseña")]
+        [Required(ErrorMessage = "Ingrese una contraseña")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$", ErrorMessage = "Ingrese una contraseña que tenga una minuscula, una mayuscula y un numero")]
         public string Contrasenia { get; set; }
 
-        [Required(ErrorMessage ="Confirme su contraseña")]
+        [Required(ErrorMessage = "Confirme su contraseña")]
         [CompareAttribute("Contrasenia", ErrorMessage = "Los dos campos no son iguales")]
         [NotMapped]
         public string ConfirmPass { get; set; }
