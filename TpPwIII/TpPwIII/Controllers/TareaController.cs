@@ -17,8 +17,9 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
+                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta);
                 
-            return View();
+                return View();
             }
             else
             {
@@ -59,7 +60,7 @@ namespace TpPwIII.Controllers
                     tareaRepository.InsertarTarea(tar);
 
                     ViewBag.estado = "Tarea registrada";
-                    return View("MostrarTarea");
+                    return View("Home","Usuario");
 
                 }
                 else
@@ -74,6 +75,29 @@ namespace TpPwIII.Controllers
             }
 
             
+        }//function
+
+        public ActionResult MisTareas()
+        {
+            ViewBag.tareas = tareaRepository.ListarTareas();
+
+            return View();
+           
+
+        }
+
+        public ActionResult ListarTareasCompletadas()
+        {
+            ViewBag.tareas = tareaRepository.ListarTareasCompletadas();
+
+            return View("MisTareas");
+        }
+
+        public ActionResult ListarTareasIncompletas()
+        {
+            ViewBag.tareas = tareaRepository.ListarTareasIncompletas();
+
+            return View("MisTareas");
         }
     }
 }

@@ -1,8 +1,17 @@
-﻿
+﻿@model Tarea
 @{
     ViewBag.Title = "MostrarTarea";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h1>@ViewBag.estado</h1>
 <h2>MostrarTarea</h2>
+<ul>
+    @foreach (Tarea tarea in ViewBag.tareas)
+    {
+        <li>
+            @tarea.Nombre
+        </li>
+    }
+</ul>
+
 

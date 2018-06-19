@@ -1,0 +1,17 @@
+﻿@model Tarea
+@{
+    ViewBag.Title = "MisTareas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Mis Tareas</h2>
+@Html.ActionLink("Ver tareas completas", "ListarTareasCompletadas", "Tarea")
+<br />
+@Html.ActionLink("Ver tareas incompletas", "ListarTareasIncompletas", "Tarea")
+<ul>
+    @foreach (Tarea tarea in ViewBag.tareas)
+    {
+        <li>@Html.ActionLink(tarea.Nombre, "MostrarTarea", "Tarea", new { idCarpeta = tarea.IdCarpeta }, null)</li>
+
+    }
+</ul>

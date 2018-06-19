@@ -8,6 +8,7 @@ namespace TpPwIII.Models
     public class TareaRepository
     {
         MyContext ctx = new MyContext();
+        List<Tarea> tareas;
 
 
         public void InsertarTarea(Tarea tar)
@@ -30,6 +31,46 @@ namespace TpPwIII.Models
                     }
                 }
             }
+        }//function
+
+        public List<Tarea> BuscarTareasPorCarpeta(int idCarpeta)
+        {
+            tareas = new List<Tarea>();
+
+            tareas = ctx.Tareas.Where(o => o.IdCarpeta == idCarpeta).ToList();
+
+            return tareas;
+
+        }
+
+        public List<Tarea> ListarTareas()
+        {
+
+            tareas = new List<Tarea>();
+
+            tareas = ctx.Tareas.OrderByDescending(o => o.FechaCreacion).ToList();
+
+            return tareas;
+
+            
+
+        }
+
+        public List<Tarea> ListarTareasCompletadas()
+        {
+            tareas = new List<Tarea>();
+            tareas = ctx.Tareas.Where(o => o.Completada == 1).ToList();
+
+            return tareas;
+        }
+
+
+        public List<Tarea> ListarTareasIncompletas()
+        {
+            tareas = new List<Tarea>();
+            tareas = ctx.Tareas.Where(o => o.Completada == 0).ToList();
+
+            return tareas;
         }
     }
 }

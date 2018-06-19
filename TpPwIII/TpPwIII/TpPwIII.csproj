@@ -265,6 +265,7 @@
     <Content Include="Views\Carpeta\MisCarpetas.cshtml" />
     <Content Include="Views\Tarea\MostrarTarea.cshtml" />
     <Content Include="Views\Tarea\CrearForm.cshtml" />
+    <Content Include="Views\Tarea\MisTareas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
