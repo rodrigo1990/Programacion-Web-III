@@ -1,0 +1,92 @@
+﻿@using TpPwIII.Models
+@model ComentarioTarea
+@{
+    ViewBag.Title = "DetalleTarea";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalle de Tarea</h2>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Fecha Fin
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Prioridad
+            </th>
+    
+            <th>
+                Estimado
+            </th>
+            <th>
+                Completada
+            </th>
+          
+        </tr>
+    </thead>
+    <tbody>
+
+      
+            <tr>
+                <th>
+                    @ViewBag.Tarea.FechaFin
+                </th>
+                <th>
+                    @ViewBag.Tarea.Nombre
+                </th>
+                <th>
+                    
+                    @if (ViewBag.Tarea.Prioridad == 1)
+                    {
+                        <h4 class="red-text">Urgente</h4>
+                    }
+                    else if (ViewBag.Tarea.Prioridad == 2)
+                    {
+                         <h4 class="orange-text">Alta</h4>
+                    }
+                    else if (ViewBag.Tarea.Prioridad == 3)
+                    {
+                         <h4 class="yellow-text">Media</h4>
+                    }
+                    else if (ViewBag.Tarea.Prioridad == 4)
+                    {
+                        <h4 class="green-text">Baja</h4>
+                    }
+                </th>
+          
+                <th>
+                    @ViewBag.Tarea.EstimadoHoras
+                </th>
+                <th>
+                    @if (@ViewBag.Tarea.Completada == 1)
+                    {
+                        <h3>Si</h3>
+                    }
+                    else
+                    {
+                        <h3>No</h3>
+                    }
+                </th>
+            </tr>
+
+      
+
+    </tbody>
+</table>
+
+<h1>Crear Comentario</h1>
+@using (Html.BeginForm("Crear", "Comentario", FormMethod.Post, new { @class = "text-center" }))
+{
+    @Html.LabelFor(model=>model.Texto,"Ingrese un comentario")
+    <br />
+    @Html.TextAreaFor(model=>model.Texto, new { @class = "form-control input-center" })
+
+    @Html.HiddenFor(model=>model.IdTarea,Request.Params["idTarea"])
+    
+}
+
+

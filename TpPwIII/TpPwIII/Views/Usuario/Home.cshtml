@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TpPwIII.Models
+@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -8,5 +9,92 @@
 <h1>@ViewBag.CookieMensaje</h1>
 
 <p>Use this area to provide additional information.</p>
-@Session["Email"].ToString()
 
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                Fecha Fin
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Prioridad
+            </th>
+            <th>
+                Carpeta
+            </th>
+            <th>
+                Estimado
+            </th>
+            <th>
+                Completada
+            </th>
+            <th>
+                Ver
+            </th>
+            <th>
+                Completar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (TareaHomeViewModel tar in ViewBag.Tareas)
+        {
+            <tr>
+                <th>
+                    @tar.FechaFin
+                </th>
+                <th>
+                    @tar.Nombre
+                </th>
+                <th>
+                    @if (tar.Prioridad == 1)
+                    {
+                        <h4 class="red-text">Urgente</h4>
+                    }
+                    else if (tar.Prioridad == 2)
+                    {
+                        <h4 class="orange-text">Alta</h4>
+                    }
+                    else if (tar.Prioridad == 3)
+                    {
+                        <h4 class="yellow-text">Media</h4>
+                    }else if (tar.Prioridad == 4)
+                    {
+                        <h4 class="green-text">Baja</h4>
+                    }
+
+                </th>
+                <th>
+                    @tar.NombreCarpeta
+                </th>
+                <th>
+                    @tar.EstimadoHoras
+                </th>
+                <th>
+                    @if (tar.Completada == 1)
+                    {
+                        <h3>Si</h3>
+                    }
+                    else
+                    {
+                        <h3>No</h3>
+                    }
+                </th>
+                <th>
+                    @Html.ActionLink("Ver", "DetalleTarea", "Tarea", new { idTarea = tar.IdTarea }, null)
+                </th>
+                <th>
+                    @Html.ActionLink("Completa", "CompletarTarea", "Tarea", new { idTarea = tar.IdTarea }, null)
+                </th>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+<!--@Session["Email"].ToString()-->

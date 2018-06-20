@@ -17,7 +17,7 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta);
+                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta,Int32.Parse(Session["ID"].ToString()));
                 
                 return View();
             }
@@ -79,7 +79,7 @@ namespace TpPwIII.Controllers
 
         public ActionResult MisTareas()
         {
-            ViewBag.tareas = tareaRepository.ListarTareas();
+            ViewBag.tareas = tareaRepository.ListarTareas(Int32.Parse(Session["ID"].ToString()));
 
             return View();
            
@@ -88,16 +88,30 @@ namespace TpPwIII.Controllers
 
         public ActionResult ListarTareasCompletadas()
         {
-            ViewBag.tareas = tareaRepository.ListarTareasCompletadas();
+            ViewBag.tareas = tareaRepository.ListarTareasCompletadas(Int32.Parse(Session["ID"].ToString()));
 
             return View("MisTareas");
         }
 
         public ActionResult ListarTareasIncompletas()
         {
-            ViewBag.tareas = tareaRepository.ListarTareasIncompletas();
+            ViewBag.tareas = tareaRepository.ListarTareasIncompletas(Int32.Parse(Session["ID"].ToString()));
 
             return View("MisTareas");
+        }
+
+        public ActionResult CompletarTarea(int idTarea)
+        {
+            tareaRepository.CompletarTarea(idTarea);
+
+            return RedirectToAction("Home", "Usuario");
+        }
+
+        public ActionResult DetalleTarea(int idTarea)
+        {
+            ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
+
+            return View();
         }
     }
 }

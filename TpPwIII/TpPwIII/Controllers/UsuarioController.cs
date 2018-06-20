@@ -13,6 +13,7 @@ namespace TpPwIII.Controllers
     {
         UsuarioRepository usuarioRepository = new UsuarioRepository();
         SessionValidator sv = new SessionValidator();
+        TareaRepository tareaRepository = new TareaRepository();
 
         public ActionResult Index()
         {
@@ -46,6 +47,7 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
+                ViewBag.tareas = tareaRepository.ListarTareasConCarpeta(Int32.Parse(Session["ID"].ToString()));
                 return View();
             }
             else
