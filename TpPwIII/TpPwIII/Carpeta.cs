@@ -20,7 +20,7 @@ namespace TpPwIII
 
         public Nullable<int> IdUsuario { get; set; }
 
-        [Required(ErrorMessage ="Ingrese un nombre")]
+        [Required(ErrorMessage = "Ingrese un nombre")]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "Ingrese un nombre de como maximo 50 caracteres")]
         public string Nombre { get; set; }
 

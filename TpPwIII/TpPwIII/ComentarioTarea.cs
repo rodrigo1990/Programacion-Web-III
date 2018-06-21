@@ -11,10 +11,14 @@ namespace TpPwIII
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class ComentarioTarea
     {
         public int IdComentarioTarea { get; set; }
+        [Required(ErrorMessage = "Ingrese un comentario")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Ingrese un comentario de como maximo 100 caracteres")]
         public string Texto { get; set; }
         public int IdTarea { get; set; }
         public System.DateTime FechaCreacion { get; set; }

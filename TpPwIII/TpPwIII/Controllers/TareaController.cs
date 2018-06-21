@@ -12,6 +12,8 @@ namespace TpPwIII.Controllers
         CarpetaRepository carpetaRepository = new CarpetaRepository();
         TareaRepository tareaRepository = new TareaRepository();
         SessionValidator sv = new SessionValidator();
+        ComentarioRepository comentarioRepository = new ComentarioRepository();
+
         // GET: Tarea
         public ActionResult MostrarTarea(int idCarpeta)
         {
@@ -110,7 +112,7 @@ namespace TpPwIII.Controllers
         public ActionResult DetalleTarea(int idTarea)
         {
             ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
-
+            ViewBag.comentarios = comentarioRepository.BuscarComentarios(idTarea);
             return View();
         }
     }

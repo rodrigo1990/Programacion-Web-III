@@ -25,9 +25,9 @@ namespace TpPwIII
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ArchivoTarea> ArchivoTarea { get; set; }
+        public virtual DbSet<ArchivoTarea> Archivos { get; set; }
         public virtual DbSet<Carpeta> Carpetas { get; set; }
-        public virtual DbSet<ComentarioTarea> ComentarioTarea { get; set; }
+        public virtual DbSet<ComentarioTarea> Comentarios { get; set; }
         public virtual DbSet<Tarea> Tareas { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
     }

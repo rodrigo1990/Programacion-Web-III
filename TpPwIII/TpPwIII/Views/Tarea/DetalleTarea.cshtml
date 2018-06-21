@@ -18,62 +18,62 @@
             <th>
                 Prioridad
             </th>
-    
+
             <th>
                 Estimado
             </th>
             <th>
                 Completada
             </th>
-          
+
         </tr>
     </thead>
     <tbody>
 
-      
-            <tr>
-                <th>
-                    @ViewBag.Tarea.FechaFin
-                </th>
-                <th>
-                    @ViewBag.Tarea.Nombre
-                </th>
-                <th>
-                    
-                    @if (ViewBag.Tarea.Prioridad == 1)
-                    {
-                        <h4 class="red-text">Urgente</h4>
-                    }
-                    else if (ViewBag.Tarea.Prioridad == 2)
-                    {
-                         <h4 class="orange-text">Alta</h4>
-                    }
-                    else if (ViewBag.Tarea.Prioridad == 3)
-                    {
-                         <h4 class="yellow-text">Media</h4>
-                    }
-                    else if (ViewBag.Tarea.Prioridad == 4)
-                    {
-                        <h4 class="green-text">Baja</h4>
-                    }
-                </th>
-          
-                <th>
-                    @ViewBag.Tarea.EstimadoHoras
-                </th>
-                <th>
-                    @if (@ViewBag.Tarea.Completada == 1)
-                    {
-                        <h3>Si</h3>
-                    }
-                    else
-                    {
-                        <h3>No</h3>
-                    }
-                </th>
-            </tr>
 
-      
+        <tr>
+            <th>
+                @ViewBag.Tarea.FechaFin
+            </th>
+            <th>
+                @ViewBag.Tarea.Nombre
+            </th>
+            <th>
+
+                @if (ViewBag.Tarea.Prioridad == 1)
+                {
+                    <h4 class="red-text">Urgente</h4>
+                }
+                else if (ViewBag.Tarea.Prioridad == 2)
+                {
+                    <h4 class="orange-text">Alta</h4>
+                }
+                else if (ViewBag.Tarea.Prioridad == 3)
+                {
+                    <h4 class="yellow-text">Media</h4>
+                }
+                else if (ViewBag.Tarea.Prioridad == 4)
+                {
+                    <h4 class="green-text">Baja</h4>
+                }
+            </th>
+
+            <th>
+                @ViewBag.Tarea.EstimadoHoras
+            </th>
+            <th>
+                @if (@ViewBag.Tarea.Completada == 1)
+                {
+                    <h3>Si</h3>
+                }
+                else
+                {
+                    <h3>No</h3>
+                }
+            </th>
+        </tr>
+
+
 
     </tbody>
 </table>
@@ -81,12 +81,30 @@
 <h1>Crear Comentario</h1>
 @using (Html.BeginForm("Crear", "Comentario", FormMethod.Post, new { @class = "text-center" }))
 {
-    @Html.LabelFor(model=>model.Texto,"Ingrese un comentario")
+    @Html.LabelFor(model => model.Texto, "Ingrese un comentario")
     <br />
-    @Html.TextAreaFor(model=>model.Texto, new { @class = "form-control input-center" })
+    @Html.TextAreaFor(model => model.Texto, new { @class = "form-control input-center" })
+    @Html.ValidationMessageFor(model => model.Texto, "", new { @class = "text-danger" })
 
-    @Html.HiddenFor(model=>model.IdTarea,Request.Params["idTarea"])
-    
+    @Html.HiddenFor(model => model.IdTarea, Request.Params["idTarea"])
+
+    <button>Crear comentario</button>
 }
 
+    <div class="container comentarios">
+        @foreach (ComentarioTarea comentario in ViewBag.comentarios)
+        {
+         
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h4>Fecha : @comentario.FechaCreacion</h4>
+                        
+                 
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @comentario.Texto
+                </div>
+            </div>
+        }
+    </div>
 

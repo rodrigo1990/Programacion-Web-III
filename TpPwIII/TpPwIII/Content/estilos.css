@@ -275,3 +275,24 @@ ul.slide2 {
     float:right !important;
 }
 
+
+.comentarios .row{
+    height:100px;
+    max-height:200px;
+}
+
+
+.red-text{
+    color:red !important;
+}
+.orange-text {
+    color: orange !important;
+}
+
+.yellow-text {
+    color: yellow !important;
+}
+
+.green-text {
+    color: green !important;
+}
