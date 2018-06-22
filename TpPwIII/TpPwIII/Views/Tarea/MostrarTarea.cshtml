@@ -5,13 +5,40 @@
 }
 <h1>@ViewBag.estado</h1>
 <h2>MostrarTarea</h2>
-<ul>
-    @foreach (Tarea tarea in ViewBag.tareas)
-    {
-        <li>
-            @tarea.Nombre
-        </li>
-    }
-</ul>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Detalle
+            </th>
+            <th>
+                Eliminar
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        
+        @foreach (Tarea tarea in ViewBag.tareas)
+        {
+            <tr>
+                <td>
+                    @tarea.Nombre
+                </td>
+                <td>
+                    @Html.ActionLink("Ver","DetalleTarea", "Tarea",new { idTarea = tarea.IdTarea},null)
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar", "EliminarTarea", "Tarea", new { idTarea = tarea.IdTarea },null)
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
 
 

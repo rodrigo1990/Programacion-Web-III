@@ -76,6 +76,14 @@ namespace TpPwIII.Controllers
 
         }
 
+        public ActionResult EliminarCarpeta(int idCarpeta)
+        {
+            carpetaRepository.EliminarCarpeta(idCarpeta);
+
+
+            return RedirectToAction("MisCarpetas");
+        }
+
 
 
     }

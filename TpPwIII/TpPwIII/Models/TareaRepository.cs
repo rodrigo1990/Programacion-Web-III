@@ -8,6 +8,8 @@ namespace TpPwIII.Models
     public class TareaRepository
     {
         MyContext ctx = new MyContext();
+        ComentarioRepository comentarioRepository = new ComentarioRepository();
+        List<ComentarioTarea> comentarios = new List<ComentarioTarea>();
         List<Tarea> tareas;
 
 
@@ -33,11 +35,11 @@ namespace TpPwIII.Models
             }
         }//function
 
-        public List<Tarea> BuscarTareasPorCarpeta(int idCarpeta, int idUsuario)
+        public List<Tarea> BuscarTareasPorCarpeta(int idCarpeta)
         {
             tareas = new List<Tarea>();
 
-            tareas = ctx.Tareas.Where(o=>o.IdUsuario==idUsuario).Where(o => o.IdCarpeta == idCarpeta).ToList();
+            tareas = ctx.Tareas.Where(o => o.IdCarpeta == idCarpeta).ToList();
 
             return tareas;
 
@@ -110,6 +112,25 @@ namespace TpPwIII.Models
             tarea = ctx.Tareas.Find(idTarea);
 
             return tarea;
+        }
+
+
+        public void EliminarTarea(Tarea tarea)
+        {
+            //Elimino comentarios
+            comentarios = comentarioRepository.BuscarComentarios(tarea.IdTarea);
+
+            ctx.Tareas.Remove(tarea);
+
+
+            foreach (ComentarioTarea comentario in comentarios)
+            {
+                ctx.Comentarios.Attach(comentario);
+                ctx.Comentarios.Remove(comentario);
+            }
+
+           
+            ctx.SaveChanges();
         }
     }
 }

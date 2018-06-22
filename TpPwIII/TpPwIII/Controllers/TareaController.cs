@@ -19,7 +19,7 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta,Int32.Parse(Session["ID"].ToString()));
+                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta);
                 
                 return View();
             }
@@ -62,13 +62,13 @@ namespace TpPwIII.Controllers
                     tareaRepository.InsertarTarea(tar);
 
                     ViewBag.estado = "Tarea registrada";
-                    return View("Home","Usuario");
+                    return RedirectToAction("MisTareas");
 
                 }
                 else
                 {
                     ViewBag.estado = "Tarea NO registrada";
-                    return View("MostrarTarea");
+                    return View("Home","Usuario");
                 }
             }
             else
@@ -114,6 +114,15 @@ namespace TpPwIII.Controllers
             ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
             ViewBag.comentarios = comentarioRepository.BuscarComentarios(idTarea);
             return View();
+        }
+
+        public ActionResult EliminarTarea(int idTarea)
+        {
+            Tarea tarea = tareaRepository.ListarTarea(idTarea);
+
+            tareaRepository.EliminarTarea(tarea);
+            
+            return RedirectToAction("MisTareas", "Tarea");
         }
     }
 }

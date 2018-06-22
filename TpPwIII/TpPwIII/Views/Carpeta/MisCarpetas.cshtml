@@ -8,10 +8,39 @@
 <h1>@ViewBag.estado</h1>
 <h2>MisCarpetas</h2>
 
-@foreach(Carpeta carpeta in ViewBag.Carpetas)
-{
-    @Html.ActionLink(@carpeta.Nombre, "MostrarTarea","Tarea",new{idCarpeta=carpeta.IdCarpeta },null)
-    
-    <br />
-}
+<table>
+    <thead>
+        <tr>
+            <td>
+                Nombre
+            </td>
+            <td>
+                Tareas
+            </td>
+            <td>
+                Eliminar
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Carpeta carpeta in ViewBag.Carpetas)
+        {
+            <tr>
+                <td>
+                    @carpeta.Nombre;
+                </td>
+                <td>
+                    @Html.ActionLink("Ver", "MostrarTarea", "Tarea", new { idCarpeta = carpeta.IdCarpeta }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar","EliminarCarpeta","Carpeta",new {idCarpeta = carpeta.IdCarpeta },null)
+                </td>
+            </tr>
+           
+
+         }
+    </tbody>
+</table>
+
+
 

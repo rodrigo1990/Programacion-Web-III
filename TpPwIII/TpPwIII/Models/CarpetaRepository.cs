@@ -10,7 +10,12 @@ namespace TpPwIII.Models
 {
     public class CarpetaRepository
     {
+        TareaRepository tareaRepository = new TareaRepository();
+        ComentarioRepository comentarioRepository = new ComentarioRepository();
         MyContext ctx = new MyContext();
+        List<Tarea> tareas = new List<Tarea>();
+        List<ComentarioTarea> comentarios = new List<ComentarioTarea>();
+        
 
         public void InsertarCarpeta(Carpeta car)
         {
@@ -24,6 +29,26 @@ namespace TpPwIII.Models
         public List<Carpeta> BuscarCarpetas(int idUsuario)
         {
             return ctx.Carpetas.Where(o => o.IdUsuario == idUsuario).OrderBy(o=>o.Nombre).ToList();
+        }
+
+        public void EliminarCarpeta(int idCarpeta)
+        {
+            tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta);
+
+            foreach(Tarea tarea in tareas)
+            {
+                tareaRepository.EliminarTarea(tarea);
+
+            }
+
+            Carpeta carpeta = new Carpeta();
+
+            carpeta = ctx.Carpetas.Where(o=>o.IdCarpeta==idCarpeta).First();
+
+            ctx.Carpetas.Remove(carpeta);
+
+            ctx.SaveChanges();
+
         }
 
     }
