@@ -20,6 +20,9 @@
             <td>
                 Eliminar
             </td>
+            <td>
+                Actualizar
+            </td>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +38,7 @@
                 <td>
                     @Html.ActionLink("Eliminar","EliminarCarpeta","Carpeta",new {idCarpeta = carpeta.IdCarpeta },null)
                 </td>
+                <td>@Html.ActionLink("Actualizar","ActualizarForm","Carpeta",new { idCarpeta = carpeta.IdCarpeta },null)</td>
             </tr>
            
 

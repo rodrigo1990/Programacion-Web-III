@@ -270,6 +270,8 @@
     <Content Include="Views\Tarea\CrearForm.cshtml" />
     <Content Include="Views\Tarea\MisTareas.cshtml" />
     <Content Include="Views\Tarea\DetalleTarea.cshtml" />
+    <Content Include="Views\Tarea\ActualizarForm.cshtml" />
+    <Content Include="Views\Carpeta\ActualizarForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

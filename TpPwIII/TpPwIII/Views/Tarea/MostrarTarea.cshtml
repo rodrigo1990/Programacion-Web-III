@@ -17,6 +17,9 @@
             <th>
                 Eliminar
             </th>
+            <th>
+                Actualizar
+            </th>
 
         </tr>
     </thead>
@@ -34,6 +37,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Eliminar", "EliminarTarea", "Tarea", new { idTarea = tarea.IdTarea },null)
+                </td>
+                <td>
+                    @Html.ActionLink("Actualizar","ActualizarForm","Tarea",new { idTarea = tarea.IdTarea },null);
                 </td>
             </tr>
         }

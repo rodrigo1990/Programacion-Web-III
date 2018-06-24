@@ -84,6 +84,46 @@ namespace TpPwIII.Controllers
             return RedirectToAction("MisCarpetas");
         }
 
+        public ActionResult ActualizarForm(int idCarpeta)
+        {
+            ViewBag.carpeta = carpetaRepository.BuscarCarpeta(idCarpeta);
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ActualizarCarpeta([Bind(Include = "IdCarpeta,Nombre,Descripcion")] Carpeta car)
+        {
+            if (sv.ValidarSesion() == true)
+            {
+                if (ModelState.IsValid)
+                {
+                    carpetaRepository.ActualizarCarpeta(car);
+
+                    ViewBag.estado = "Carpeta Actualizada";
+
+                    return RedirectToAction("MisCarpetas");
+
+
+                }
+                else
+                {
+
+                    ViewBag.estado = "Carpeta  NO registrada";
+
+                    return View("MisCarpetas");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+        }
+
 
 
     }

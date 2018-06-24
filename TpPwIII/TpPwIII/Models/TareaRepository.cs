@@ -132,5 +132,20 @@ namespace TpPwIII.Models
            
             ctx.SaveChanges();
         }
+
+        public void ActualizarTarea(Tarea nuevaTarea)
+        {
+            Tarea tarea;
+            tarea = ctx.Tareas.Find(nuevaTarea.IdTarea);
+
+            tarea.Nombre = nuevaTarea.Nombre;
+            tarea.Descripcion = nuevaTarea.Descripcion;
+            tarea.FechaFin = nuevaTarea.FechaFin;
+            tarea.IdCarpeta = nuevaTarea.IdCarpeta;
+            tarea.EstimadoHoras = nuevaTarea.EstimadoHoras;
+            tarea.Prioridad = nuevaTarea.Prioridad;
+
+            ctx.SaveChanges();
+        }
     }
 }

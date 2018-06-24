@@ -1,0 +1,28 @@
+﻿
+@model TpPwIII.Carpeta
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<h2>Actualizar carpeta</h2>
+
+@using (Html.BeginForm("ActualizarCarpeta", "Carpeta", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.TextBox("Nombre", (string)ViewBag.carpeta.Nombre, new { @class = "form-control input-center", @placeholder = "Ingrese nombre" })
+        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group text-center">
+        @Html.TextArea("Descripcion", (string)ViewBag.carpeta.Descripcion, new { @class = "form-control input-center", @placeholder = "Ej: Carlo20010" })
+        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        <br />
+        <button class="btn btn-primary button-form-modal">Actualizar carpeta</button>
+        @Html.HiddenFor(o => o.IdCarpeta);
+    </div>
+}

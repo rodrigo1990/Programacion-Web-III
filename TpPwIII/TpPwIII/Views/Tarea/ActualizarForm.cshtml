@@ -1,0 +1,138 @@
+﻿@model Tarea
+@{
+    ViewBag.Title = "CrearForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Crear Tarea</h2>
+
+@using (Html.BeginForm("Actualizar", "Tarea", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group text-center">
+        @Html.LabelFor(model => model.Nombre)
+        @Html.TextBox("Nombre",(string)ViewBag.tarea.Nombre, new { @class = "form-control input-center", @placeholder = "Ingrese nombre de tarea"  })
+        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+
+    </div>
+    <div class="form-group text-center">
+        @Html.LabelFor(model => model.Descripcion)
+        @Html.TextArea("Descripcion", (string)ViewBag.tarea.Descripcion, new { @class = "form-control input-center", @placeholder = "Ingrese una descripcion" })
+        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        <br />
+        @Html.LabelFor(model => model.FechaFin, "Fecha de finalizacion")
+        @Html.TextBox("FechaFin", (string)ViewBag.FechaFin, new { @type = "date", @class = "form-control input-center", @placeholder = "Fecha de finalizacion" })
+        <br />
+        @Html.LabelFor(model => model.EstimadoHoras, "Horas estimadas")
+        @Html.TextBox("EstimadoHoras", (string)ViewBag.EstimadoHoras, new { @type = "number", @step = "1", @class = "form-control input-center", @placeholder = "1.00" })
+        @Html.ValidationMessageFor(model => model.EstimadoHoras, "", new { @class = "text-danger" })
+        <br />
+
+        @{
+        List<SelectListItem> listPrioridad = new List<SelectListItem>();
+        if (ViewBag.tarea.Prioridad == 1)
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Urgente",
+                Value = "1",
+                Selected = true
+            });
+        }
+        else
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Urgente",
+                Value = "1",
+                Selected = true
+            });
+        }
+
+        if (ViewBag.tarea.Prioridad == 2)
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Alta",
+                Value = "2",
+                Selected = true
+            });
+        }
+        else
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Alta",
+                Value = "2",
+                Selected = true
+            });
+        }
+        if (ViewBag.tarea.Prioridad == 3)
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Media",
+                Value = "3",
+                Selected = true
+            });
+        }
+        else
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Media",
+                Value = "3"
+            });
+        }
+
+        if (ViewBag.tarea.Prioridad == 4)
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Baja",
+                Value = "4",
+                Selected = true
+            });
+        }
+        else
+        {
+            listPrioridad.Add(new SelectListItem
+            {
+                Text = "Baja",
+                Value = "4"
+            });
+        }
+
+        }
+        @Html.LabelFor(model => model.Prioridad)
+        @Html.DropDownListFor(model => model.Prioridad, listPrioridad, new { @class = "form-control input-center" })
+        <br />
+        <label for="carpeta">Carpeta</label>
+        <select name="carpeta" id="carpeta" class="form-control input-center">
+            <option value="0">Seleccione una carpeta</option>
+            @foreach (Carpeta carpeta in ViewBag.carpetas)
+        {
+            if (carpeta.IdCarpeta == ViewBag.tarea.IdCarpeta)
+            {
+                <option value=@carpeta.IdCarpeta selected>@carpeta.Nombre</option>
+        }
+        else
+        {
+            <option value=@carpeta.IdCarpeta>@carpeta.Nombre</option>
+    }
+
+}
+        </select>
+
+        <br />
+
+        @Html.HiddenFor(model => model.IdTarea, Request.Params["idTarea"])
+
+        <button class="btn btn-primary button-form-modal">Actualizar tarea</button>
+
+    </div>
+
+
+
+}

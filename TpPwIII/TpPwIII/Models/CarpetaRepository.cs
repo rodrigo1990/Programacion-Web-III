@@ -51,5 +51,23 @@ namespace TpPwIII.Models
 
         }
 
+
+        public Carpeta BuscarCarpeta(int idCarpeta)
+        {
+            Carpeta carpeta = ctx.Carpetas.Find(idCarpeta);
+
+            return carpeta;
+        }
+
+        public void ActualizarCarpeta(Carpeta nuevaCarpeta)
+        {
+            Carpeta carpeta = ctx.Carpetas.Find(nuevaCarpeta.IdCarpeta);
+
+            carpeta.Nombre = nuevaCarpeta.Nombre;
+            carpeta.Descripcion = nuevaCarpeta.Descripcion;
+
+            ctx.SaveChanges();
+        }
+
     }
 }
