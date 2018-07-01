@@ -49,5 +49,8 @@ namespace TpPwIII
 
         [NotMapped]
         public bool RecordarUsuario { get; set; }
+
+        [NotMapped]
+        public string Archivo { get; set; }
     }
 }

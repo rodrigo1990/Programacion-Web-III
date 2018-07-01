@@ -13,9 +13,11 @@
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    margin-left:18%;
+    margin-left: 18%;
     padding-left: 15px;
     padding-right: 15px;
+    overflow-y: scroll;
+    max-height: 100vh;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

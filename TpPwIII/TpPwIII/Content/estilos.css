@@ -274,6 +274,11 @@ ul.slide2 {
 .cerrar-sesion{
     float:right !important;
 }
+.comentarios {
+    min-height: 98px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
 
 
 .comentarios .row{
@@ -296,3 +301,4 @@ ul.slide2 {
 .green-text {
     color: green !important;
 }
+

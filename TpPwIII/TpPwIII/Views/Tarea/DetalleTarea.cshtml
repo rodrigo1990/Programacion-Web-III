@@ -1,5 +1,4 @@
 ﻿@using TpPwIII.Models
-@model ComentarioTarea
 @{
     ViewBag.Title = "DetalleTarea";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -79,6 +78,7 @@
 </table>
 
 <h1>Crear Comentario</h1>
+@model ComentarioTarea
 @using (Html.BeginForm("Crear", "Comentario", FormMethod.Post, new { @class = "text-center" }))
 {
     @Html.LabelFor(model => model.Texto, "Ingrese un comentario")
@@ -87,24 +87,57 @@
     @Html.ValidationMessageFor(model => model.Texto, "", new { @class = "text-danger" })
 
     @Html.HiddenFor(model => model.IdTarea, Request.Params["idTarea"])
-
+    <br />
     <button>Crear comentario</button>
 }
 
-    <div class="container comentarios">
-        @foreach (ComentarioTarea comentario in ViewBag.comentarios)
-        {
-         
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                        <h4>Fecha : @comentario.FechaCreacion</h4>
-                        
-                 
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    @comentario.Texto
-                </div>
+<h1>Crear Archivo</h1>
+<form action="/Archivo/Crear" enctype="multipart/form-data" method="POST" class="text-center">
+    <label for="Archivo">Suba un archivo</label>
+    <input type="File" name="RutaArchivo" value="" class="input-center" />
+    <input type="hidden" name="idTarea" value="@Request.Params["idTarea"]" />
+    <br />
+    <button>Subir archivo</button>
+</form>
+
+<h1>Comentarios</h1>
+<div class="container comentarios">
+    @foreach (ComentarioTarea comentario in ViewBag.comentarios)
+    {
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h4>Fecha : @comentario.FechaCreacion</h4>
+
+
             </div>
-        }
-    </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @comentario.Texto
+            </div>
+        </div>
+    }
+</div>
+
+
+<h1>Archivos</h1>
+<div class="container archivos">
+    <table>
+        <thead>
+            <th>Nombre</th>
+            <th>Descargar</th>
+        </thead>
+        <tbody>
+            @foreach (ArchivoTarea archivo in ViewBag.archivos)
+            {
+                <tr>
+                    <td>@archivo.RutaArchivo</td>
+                    <td><a href="@archivo.RutaArchivo">Descargar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
 
