@@ -9,9 +9,24 @@
 <br />
 @Html.ActionLink("Ver tareas incompletas", "ListarTareasIncompletas", "Tarea")
 
-    @foreach (Tarea tarea in ViewBag.tareas)
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha de cracion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tarea tarea in ViewBag.tareas)
     {
-        <li>@Html.ActionLink(tarea.Nombre, "MostrarTarea", "Tarea", new { idCarpeta = tarea.IdCarpeta }, null)</li>
+        <tr>
+            <td>@Html.ActionLink(tarea.Nombre, "MostrarTarea", "Tarea", new { idCarpeta = tarea.IdCarpeta }, null)</td>
+            <td>@tarea.FechaCreacion</td>
 
-    }
+        </tr>
+}
+    </tbody>
+</table>
+
+   
 </ul>

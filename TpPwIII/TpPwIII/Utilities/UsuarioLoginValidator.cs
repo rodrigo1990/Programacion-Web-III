@@ -12,14 +12,14 @@ namespace TpPwIII.Models
         Match emailMatch;
         
 
-        public bool ValidarLogin(Usuario u)
+        public bool ValidarLogin(UsuarioLogin u)
         {
             emailMatch = emailRegex.Match(u.Email);
              
 
            
 
-            if(emailMatch.Success & u.Contrasenia.Length<=20)
+            if(emailMatch.Success & u.ContraseniaLogin.Length<=20)
             {
                 return true;
             }

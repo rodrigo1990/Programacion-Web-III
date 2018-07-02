@@ -22,6 +22,10 @@ namespace TpPwIII
             Session["ID"] = String.Empty;
             Session["Email"] = String.Empty;
             Session["Contrasenia"] = String.Empty;
+            Session["Controller"] = String.Empty;
+            Session["Action"] = String.Empty;
+            Session["IdCarpeta"] = String.Empty;
+            Session["IdTarea"] = String.Empty;
         }
     }
 }

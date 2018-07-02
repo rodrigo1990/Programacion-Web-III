@@ -28,7 +28,12 @@ namespace TpPwIII.Models
 
         public List<Carpeta> BuscarCarpetas(int idUsuario)
         {
-            return ctx.Carpetas.Where(o => o.IdUsuario == idUsuario).OrderBy(o=>o.Nombre).ToList();
+            return ctx.Carpetas.Where(o => o.IdUsuario == idUsuario ||  o.IdUsuario == null).OrderBy(o=>o.Nombre).ToList();
+        }
+
+        public List<Carpeta> BuscarCarpetasMenosGeneral(int idUsuario)
+        {
+            return ctx.Carpetas.Where(o => o.IdUsuario == idUsuario).OrderByDescending(o => o.Nombre).ToList();
         }
 
         public void EliminarCarpeta(int idCarpeta)
@@ -67,6 +72,33 @@ namespace TpPwIII.Models
             carpeta.Descripcion = nuevaCarpeta.Descripcion;
 
             ctx.SaveChanges();
+        }
+
+        public void CrearGeneral()
+        {
+            if (BuscarGeneral() == null) { 
+                Carpeta c = new Carpeta();
+                c.FechaCreacion = DateTime.Now;
+                c.Nombre = "General";
+                c.Descripcion = "Carpeta general";
+                c.IdUsuario = null;
+
+                ctx.Carpetas.Add(c);
+                ctx.SaveChanges();
+            }
+
+        }
+
+        public Carpeta BuscarGeneral()
+        {
+            Carpeta carpeta = ctx.Carpetas.Where(o => o.Nombre == "General").FirstOrDefault();
+            if (carpeta != null) { 
+            return carpeta;
+            }
+            else
+            {
+                return null;
+            }
         }
 
     }

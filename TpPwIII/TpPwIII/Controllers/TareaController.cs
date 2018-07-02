@@ -15,17 +15,22 @@ namespace TpPwIII.Controllers
         ComentarioRepository comentarioRepository = new ComentarioRepository();
         ArchivoRepository archivoRepository = new ArchivoRepository();
 
+
         // GET: Tarea
         public ActionResult MostrarTarea(int idCarpeta)
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpeta(idCarpeta);
+                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpetaYUsuario(idCarpeta,Int32.Parse(Session["ID"].ToString()));
                 
                 return View();
             }
             else
             {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "MostrarTarea";
+                Session["IdCarpeta"] = idCarpeta.ToString();
+
                 return RedirectToAction("Index", "Usuario");
             }
 
@@ -35,11 +40,13 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.carpetas = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
+                ViewBag.carpetas = carpetaRepository.BuscarCarpetasMenosGeneral(Int32.Parse(Session["ID"].ToString()));
                 return View();
             }
             else
             {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "CrearForm";
                 return RedirectToAction("Index", "Usuario");
             }
                 
@@ -55,11 +62,23 @@ namespace TpPwIII.Controllers
                 {
                     //  tar.EstimadoHoras = 2.5M;
                     tar.EstimadoHoras = Convert.ToDecimal(form["EstimadoHoras"]);
-                    tar.IdCarpeta = Int32.Parse(form["Carpeta"].ToString());
+
+                    if (form["Carpeta"] == "0") { 
+                        tar.IdCarpeta = 1;
+                    }
+                    else { 
+                        tar.IdCarpeta = Int32.Parse(form["Carpeta"].ToString());
+                    }
                     tar.FechaCreacion = DateTime.Now;
                     tar.IdUsuario = Int32.Parse(Session["ID"].ToString());
                     tar.Completada = 0;
-                    tar.FechaFin = Convert.ToDateTime(tar.FechaFin.ToString());
+                    if (tar.FechaFin != null) { 
+                        tar.FechaFin = Convert.ToDateTime(tar.FechaFin.ToString());
+                    }
+                    else
+                    {
+                        tar.FechaFin = null;
+                    }
                     tareaRepository.InsertarTarea(tar);
 
                     ViewBag.estado = "Tarea registrada";
@@ -82,60 +101,139 @@ namespace TpPwIII.Controllers
 
         public ActionResult MisTareas()
         {
-            ViewBag.tareas = tareaRepository.ListarTareas(Int32.Parse(Session["ID"].ToString()));
+            if (sv.ValidarSesion() == true) { 
+                ViewBag.tareas = tareaRepository.ListarTareas(Int32.Parse(Session["ID"].ToString()));
+                return View();
+            }
+            else
+            {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "MisTareas";
 
-            return View();
+                return RedirectToAction("Index", "Usuario");
+            }
+            
            
 
         }
 
         public ActionResult ListarTareasCompletadas()
         {
-            ViewBag.tareas = tareaRepository.ListarTareasCompletadas(Int32.Parse(Session["ID"].ToString()));
+            if (sv.ValidarSesion() == true)
+            {
+                ViewBag.tareas = tareaRepository.ListarTareasCompletadas(Int32.Parse(Session["ID"].ToString()));
 
-            return View("MisTareas");
+                return View("MisTareas");
+            }
+            else
+            {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "ListarTareasCompletadas";
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+            
         }
 
         public ActionResult ListarTareasIncompletas()
         {
-            ViewBag.tareas = tareaRepository.ListarTareasIncompletas(Int32.Parse(Session["ID"].ToString()));
+            if (sv.ValidarSesion() == true)
+            {
+                ViewBag.tareas = tareaRepository.ListarTareasIncompletas(Int32.Parse(Session["ID"].ToString()));
 
-            return View("MisTareas");
+                return View("MisTareas");
+            }
+            else
+            {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "ListarTareasIncompletas";
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+
         }
 
         public ActionResult CompletarTarea(int idTarea)
         {
-            tareaRepository.CompletarTarea(idTarea);
+            if (sv.ValidarSesion() == true) { 
+                tareaRepository.CompletarTarea(idTarea);
 
             return RedirectToAction("Home", "Usuario");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Usuario");
+            }
         }
 
         public ActionResult DetalleTarea(int idTarea)
         {
-            ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
-            ViewBag.comentarios = comentarioRepository.BuscarComentarios(idTarea);
-            ViewBag.archivos = archivoRepository.BuscarArchivos(idTarea);
-            return View();
+            if (sv.ValidarSesion() == true)
+            {
+                ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
+                ViewBag.comentarios = comentarioRepository.BuscarComentarios(idTarea);
+                ViewBag.archivos = archivoRepository.BuscarArchivos(idTarea);
+                return View();
+
+            }
+            else
+            {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "DetalleTarea";
+                Session["IdTarea"] = idTarea.ToString();
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+            
         }
 
         public ActionResult EliminarTarea(int idTarea)
         {
-            Tarea tarea = tareaRepository.ListarTarea(idTarea);
+            if (sv.ValidarSesion() == true)
+            {
+                Tarea tarea = tareaRepository.ListarTarea(idTarea);
 
-            tareaRepository.EliminarTarea(tarea);
-            
-            return RedirectToAction("MisTareas", "Tarea");
+                tareaRepository.EliminarTarea(tarea);
+
+                return RedirectToAction("MisTareas", "Tarea");
+
+            }
+            else
+            {
+               
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+           
         }
 
         public ActionResult ActualizarForm(int idTarea)
         {
-            ViewBag.carpetas = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
-           ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
-            ViewBag.FechaFin=ViewBag.tarea.FechaFin.ToString("yyyy-MM-dd");
-            ViewBag.EstimadoHoras = System.Convert.ToString(ViewBag.tarea.EstimadoHoras);
-            ViewBag.EstimadoHoras = ViewBag.EstimadoHoras.Replace(",", ".");
+            if (sv.ValidarSesion() == true)
+            {
+                ViewBag.carpetas = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
+                ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
+                ViewBag.FechaFin = ViewBag.tarea.FechaFin.ToString("yyyy-MM-dd");
+                ViewBag.EstimadoHoras = System.Convert.ToString(ViewBag.tarea.EstimadoHoras);
+                ViewBag.EstimadoHoras = ViewBag.EstimadoHoras.Replace(",", ".");
 
-            return View();
+                return View();
+
+            }
+            else
+            {
+                Session["Controller"] = "Tarea";
+                Session["Action"] = "ActualizarForm";
+                Session["IdTarea"] = idTarea.ToString();
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+            
 
         }
         [HttpPost]

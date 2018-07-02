@@ -47,10 +47,11 @@ namespace TpPwIII
         [NotMapped]
         public int EstadoLogin { get; set; }
 
-        [NotMapped]
-        public bool RecordarUsuario { get; set; }
+       
 
         [NotMapped]
         public string Archivo { get; set; }
+
+ 
     }
 }

@@ -13,6 +13,7 @@ namespace TpPwIII.Controllers
     public class ArchivoController : Controller
     {
         ArchivoRepository archivoRepository = new ArchivoRepository();
+        SessionValidator sv = new SessionValidator();
 
         // GET: Archivo
         public ActionResult Index()
@@ -23,12 +24,21 @@ namespace TpPwIII.Controllers
         [HttpPost]
         public ActionResult Crear(ArchivoTarea archivo) {
 
+            if (sv.ValidarSesion() == true)
+            {
+                archivo.RutaArchivo = ArchivoUtility.Guardar(Request.Files[0], archivo.IdTarea, "");
 
-            archivo.RutaArchivo= ArchivoUtility.Guardar(Request.Files[0],archivo.IdTarea, "" );
+                archivoRepository.Crear(archivo);
 
-            archivoRepository.Crear(archivo);
+                return RedirectToAction("DetalleTarea", "Tarea", new { idTarea = archivo.IdTarea });
+            }
+            else
+            {
 
-            return RedirectToAction("DetalleTarea", "Tarea", new {  idTarea = archivo.IdTarea });
+                return RedirectToAction("Index", "Usuario");
+            }
+
+            
 
 
         }

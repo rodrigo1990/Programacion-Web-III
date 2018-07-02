@@ -10,14 +10,26 @@ namespace TpPwIII.Controllers
     public class ComentarioController : Controller
     {
         ComentarioRepository comentarioRepository = new ComentarioRepository();
+        SessionValidator sv = new SessionValidator();
         
 
         // GET: Comentario
         public ActionResult Crear(ComentarioTarea comentario)
         {
-            comentarioRepository.InsertarComentario(comentario);
+            if (sv.ValidarSesion() == true)
+            {
+                comentarioRepository.InsertarComentario(comentario);
 
-           return  RedirectToAction("DetalleTarea", "Tarea", new { idTarea = comentario.IdTarea });
+                return RedirectToAction("DetalleTarea", "Tarea", new { idTarea = comentario.IdTarea });
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+           
         }
     }
 }

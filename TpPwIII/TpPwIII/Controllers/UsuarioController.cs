@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using reCAPTCHA.MVC;
 using TpPwIII.Models;
 using EncryptData;
+using System.Data.Entity.Validation;
 
 namespace TpPwIII.Controllers
 {
@@ -14,21 +15,23 @@ namespace TpPwIII.Controllers
         UsuarioRepository usuarioRepository = new UsuarioRepository();
         SessionValidator sv = new SessionValidator();
         TareaRepository tareaRepository = new TareaRepository();
+        CarpetaRepository carpetaRepository = new CarpetaRepository();
 
         public ActionResult Index()
         {
+            carpetaRepository.CrearGeneral();
             HttpCookieCollection MyCookieCollection = Request.Cookies;
             HttpCookie MyCookie = MyCookieCollection.Get("UsuarioCookies");
 
             if (MyCookie != null)
             {
                 
-                Usuario usuario = new Usuario();
+                UsuarioLogin usuario = new UsuarioLogin();
 
                 usuario.Email = Cipher.DecryptString(MyCookie["Email"]);
-                usuario.Contrasenia = Cipher.DecryptString(MyCookie["Contrasenia"]);
+                usuario.ContraseniaLogin = Cipher.DecryptString(MyCookie["Contrasenia"]);
 
-                Usuario usuarioEncontrado=usuarioRepository.BuscarUsuario(usuario);
+                Usuario usuarioEncontrado=usuarioRepository.BuscarUsuarioLogueado(usuario);
 
                 if (usuarioEncontrado.EstadoLogin == 1) {
                     Session["ID"] = MyCookie["ID"];
@@ -45,6 +48,7 @@ namespace TpPwIII.Controllers
 
         public ActionResult Home()
         {
+            bool estado = sv.ValidarSesion();
             if (sv.ValidarSesion() == true)
             {
                 ViewBag.tareas = tareaRepository.ListarTareasConCarpeta(Int32.Parse(Session["ID"].ToString()));
@@ -52,6 +56,8 @@ namespace TpPwIII.Controllers
             }
             else
             {
+                Session["Controller"] = "Usuario";
+                Session["Action"] = "Home";
                 return RedirectToAction("Index");
             }
 
@@ -68,15 +74,29 @@ namespace TpPwIII.Controllers
         ErrorMessage = "Invalid input captcha.",
         RequiredMessage = "The captcha field is required.")]
         [ValidateAntiForgeryToken]
-        public ActionResult registrarUsuario([Bind(Include = "Nombre,Apellido,Edad,Email,Contrasenia,ConfirmPass")] Usuario usu, bool captchaValid)
+        public ActionResult registrarUsuario([Bind(Include = "Nombre,Apellido,Email,Contrasenia,ConfirmPass")] Usuario usu, bool captchaValid)
         {
             
             if (ModelState.IsValid)
             {
-                usuarioRepository.insertarUsuario(usu);
-                
-                ViewBag.titulo = "¡Enhorabuena! te has registrado exitosamente";
-                return View("Landing_Registrar_Usuario");
+                string estado = usuarioRepository.insertarUsuario(usu);
+                if (estado == "Usuario registrado") { 
+
+                    ViewBag.titulo = "¡Enhorabuena! te has registrado exitosamente";
+                    return View("Landing_Registrar_Usuario");
+
+                }else if(estado == "Usuario actualizado")
+                {
+                    ViewBag.titulo = "¡Enhorabuena! te hemos activado y hemos actualizado tus datos";
+                    return View("Landing_Registrar_Usuario");
+
+                }else if(estado == "Usuario existente")
+                {
+                    ViewBag.titulo = "Tu usuario ya existe";
+                    return View("Landing_Registrar_Usuario");
+                }
+             
+            
             }
 
             return View("Index");
@@ -87,10 +107,10 @@ namespace TpPwIII.Controllers
     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LoguearUsuario(Usuario usu)
+        public ActionResult LoguearUsuario(UsuarioLogin usu)
         {
             UsuarioLoginValidator uv = new UsuarioLoginValidator();
-            Usuario usuarioEncontrado = usuarioRepository.BuscarUsuario(usu);
+            Usuario usuarioEncontrado = usuarioRepository.BuscarUsuarioLogueado(usu);
 
             if (uv.ValidarLogin(usu) == true)
             {
@@ -103,7 +123,7 @@ namespace TpPwIII.Controllers
                     Session["Contrasenia"] = Cipher.EncryptString(usuarioEncontrado.Contrasenia);
 
                     if (usu.RecordarUsuario == true)
-                    { 
+                    {
                         //Creo las cookies se llenan con los datos de sesion
                         HttpCookie myCookie = new HttpCookie("UsuarioCookies");
                         myCookie["ID"] = Session["ID"].ToString();
@@ -115,7 +135,22 @@ namespace TpPwIII.Controllers
                         Response.Cookies.Add(myCookie);
                     }
 
-                    return RedirectToAction("Home");
+                    if (sv.ValidarIntentoDeIngresoAVista() == true)
+                    {
+                        if (sv.ValidarIdCarpeta() == true)
+                        {
+                            return RedirectToAction(Session["Action"].ToString(), Session["Controller"].ToString(),new { idCarpeta = Int32.Parse(Session["IdCarpeta"].ToString()) });
+                        }
+                        else if(sv.ValidarIdTarea()==true)
+                        {
+                            return RedirectToAction(Session["Action"].ToString(), Session["Controller"].ToString(), new { idTarea = Int32.Parse(Session["IdTarea"].ToString()) });
+                        }
+                        return RedirectToAction(Session["Action"].ToString(),Session["Controller"].ToString());
+                    }
+                    else
+                    {
+                        return RedirectToAction("Home");
+                    }
 
                 }//El usuario se encuentra registrado pero inactivo
                 else if (usuarioEncontrado.EstadoLogin == 2)

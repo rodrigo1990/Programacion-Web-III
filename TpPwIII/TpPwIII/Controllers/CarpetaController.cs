@@ -15,6 +15,8 @@ namespace TpPwIII.Controllers
 
         public ActionResult MisCarpetas()
         {
+
+
             if(sv.ValidarSesion() == true)
             {
                 ViewBag.carpetas = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
@@ -23,6 +25,8 @@ namespace TpPwIII.Controllers
             }
             else
             {
+                Session["Controller"] = "Carpeta";
+                Session["Action"] = "MisCarpetas";
                 return RedirectToAction("Index", "Usuario");
             }
 
@@ -38,6 +42,8 @@ namespace TpPwIII.Controllers
             }
             else
             {
+                Session["Controller"] = "Carpeta";
+                Session["Action"] = "CrearForm";
                 return RedirectToAction("Index", "Usuario");
             }
         }
@@ -56,7 +62,7 @@ namespace TpPwIII.Controllers
 
                     ViewBag.estado = "Carpeta registrada";
 
-                    return View("MisCarpetas");
+                    return RedirectToAction("MisCarpetas");
 
 
                 }
@@ -65,7 +71,7 @@ namespace TpPwIII.Controllers
 
                     ViewBag.estado = "Carpeta  NO registrada";
 
-                    return View("MisCarpetas");
+                    return RedirectToAction("MisCarpetas");
                 }
             }
             else
@@ -78,17 +84,39 @@ namespace TpPwIII.Controllers
 
         public ActionResult EliminarCarpeta(int idCarpeta)
         {
-            carpetaRepository.EliminarCarpeta(idCarpeta);
+            if (sv.ValidarSesion() == true)
+            {
+                carpetaRepository.EliminarCarpeta(idCarpeta);
 
 
-            return RedirectToAction("MisCarpetas");
+                return RedirectToAction("MisCarpetas");
+            }
+            else
+            {
+               
+                return RedirectToAction("Index", "Usuario");
+            }
+           
         }
 
         public ActionResult ActualizarForm(int idCarpeta)
         {
-            ViewBag.carpeta = carpetaRepository.BuscarCarpeta(idCarpeta);
+            if (sv.ValidarSesion() == true)
+            {
+                ViewBag.carpeta = carpetaRepository.BuscarCarpeta(idCarpeta);
 
-            return View();
+                return View();
+            }
+            else
+            {
+                Session["Controller"] = "Carpeta";
+                Session["Action"] = "CrearForm";
+                Session["IdCarpeta"] = idCarpeta.ToString();
+                return RedirectToAction("Index", "Usuario");
+            }
+
+
+           
         }
 
 

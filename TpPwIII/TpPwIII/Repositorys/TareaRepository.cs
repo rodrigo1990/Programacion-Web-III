@@ -35,6 +35,18 @@ namespace TpPwIII.Models
             }
         }//function
 
+       
+
+        public List<Tarea> BuscarTareasPorCarpetaYUsuario(int idCarpeta,int idUsuario)
+        {
+            tareas = new List<Tarea>();
+
+            tareas = ctx.Tareas.Where(o => o.IdCarpeta == idCarpeta).Where(o=>o.IdUsuario==idUsuario).ToList();
+
+            return tareas;
+
+        }
+
         public List<Tarea> BuscarTareasPorCarpeta(int idCarpeta)
         {
             tareas = new List<Tarea>();
@@ -82,6 +94,8 @@ namespace TpPwIII.Models
             tareas = (from Tarea in ctx.Tareas
                           join Carpeta in ctx.Carpetas on Tarea.IdCarpeta equals Carpeta.IdCarpeta
                       where Tarea.IdUsuario==idUsuario
+                      where Tarea.Completada==0
+                      orderby Tarea.FechaFin descending, Tarea.Prioridad ascending
                           select new TareaHomeViewModel {
                               IdTarea = Tarea.IdTarea,
                               FechaFin  = Tarea.FechaFin,

@@ -1,0 +1,40 @@
+﻿@model TpPwIII.Models.UsuarioLogin
+@{
+    ViewBag.Title = "_FormLogin";
+}
+
+@using (Html.BeginForm("LoguearUsuario", "Usuario", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control input-center", @placeholder = "Ingrese su Email" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        <!--<input type="text" class="form-control input-center input-big" id="user" name="user" value="" placeholder="Ingrese su email" /><br />
+        <div class="form-error" id="login-email-error">Ingrese un email valido</div>-->
+    </div>
+    <div class="form-group text-center">
+        @Html.PasswordFor(model => model.ContraseniaLogin, new { @class = "form-control input-center", @placeholder = "Ej: Carlo20010" })
+        @Html.ValidationMessageFor(model => model.ContraseniaLogin, "", new { @class = "text-danger" })
+
+        <div class="checkbox-cont text-center">
+            @Html.LabelFor(o => o.RecordarUsuario, "recordar usuario")
+            @Html.CheckBoxFor(model => model.RecordarUsuario, new { @class = "form-check-input input-center", @style = "margin:auto;", @placeholder = "Ej: Carlo20010" })
+        </div>
+        <!--<input type="password" class="form-control input-center input-big" id="login-pass" name="pass" placeholder="Ingrese su password" value="" /><br />
+        <div class="form-error" id="login-pass-error">Contraseña invalida</div>-->
+    </div>
+    <h5 class="text-danger">
+        @ViewBag.estadoLogin
+    </h5>
+
+    <button class="btn btn-primary button-form-modal">Ingresar</button>
+    <br />
+    <div class="text-center">
+        <a class="ir-slide-1">
+            <h5>¿Todavía no estas registrado?</h5>
+        </a>
+    </div>
+
+}
+
