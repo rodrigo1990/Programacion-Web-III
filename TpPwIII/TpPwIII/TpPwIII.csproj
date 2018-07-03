@@ -189,6 +189,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\TareaM.cs" />
     <Compile Include="Model\UsuarioLogin.cs" />
     <Compile Include="Repositorys\ArchivoRepository.cs" />
     <Compile Include="Utilities\ArchivoUtility.cs" />
@@ -197,7 +198,7 @@
     <Compile Include="Utilities\SessionValidator.cs" />
     <Compile Include="Utilities\Cipher.cs" />
     <Compile Include="Utilities\StringUtility.cs" />
-    <Compile Include="Utilities\TareaHomeViewModel.cs" />
+    <Compile Include="Model\TareaHomeViewModel.cs" />
     <Compile Include="Repositorys\TareaRepository.cs" />
     <Compile Include="Utilities\UsuarioLoginValidator.cs" />
     <Compile Include="Repositorys\UsuarioRepository.cs" />
@@ -267,7 +268,7 @@
     <Content Include="Views\Usuario\Home.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutNoHeader.cshtml" />
-    <Content Include="Views\Shared\Lista_de_tareas.cshtml" />
+    <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Usuario\Landing_registrar_usuario.cshtml" />
     <Content Include="Views\Carpeta\CrearForm.cshtml" />
     <Content Include="Views\Carpeta\MisCarpetas.cshtml" />
@@ -279,6 +280,8 @@
     <Content Include="Views\Carpeta\ActualizarForm.cshtml" />
     <Content Include="Views\Shared\_FormLogin.cshtml" />
     <Content Include="Views\Shared\_FormRegistro.cshtml" />
+    <Content Include="Views\Shared\_SelectCarpeta.cshtml" />
+    <Content Include="Views\Tarea\_DetalleTarea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

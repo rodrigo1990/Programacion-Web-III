@@ -1,4 +1,5 @@
-﻿@model Tarea
+﻿@using TpPwIII
+@model List<Tarea>
 @{
     ViewBag.Title = "MisTareas";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Tarea tarea in ViewBag.tareas)
+        @foreach (Tarea tarea in Model)
     {
         <tr>
             <td>@Html.ActionLink(tarea.Nombre, "MostrarTarea", "Tarea", new { idCarpeta = tarea.IdCarpeta }, null)</td>

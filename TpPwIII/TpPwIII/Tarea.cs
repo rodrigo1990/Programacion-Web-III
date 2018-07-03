@@ -24,7 +24,7 @@ namespace TpPwIII
         public string Nombre { get; set; }
         [StringLength(200, MinimumLength = 1, ErrorMessage = "Ingrese un nombre de como maximo 200 caracteres")]
         public string Descripcion { get; set; }
-        //[RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage ="El numero debera tener dos decimales")]
+        //[RegularExpression(@"^\d+\.?\d{0,2}$", ErrorMessage ="El numero debera tener dos decimales")]
         public Nullable<decimal> EstimadoHoras { get; set; }
         public Nullable<System.DateTime> FechaFin { get; set; }
         public short Prioridad { get; set; }

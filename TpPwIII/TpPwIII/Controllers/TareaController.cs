@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TpPwIII.Models;
+using System.Globalization;
+
 
 namespace TpPwIII.Controllers
 {
@@ -21,9 +23,10 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.BuscarTareasPorCarpetaYUsuario(idCarpeta,Int32.Parse(Session["ID"].ToString()));
+
+                List<Tarea> lista = tareaRepository.BuscarTareasPorCarpetaYUsuario(idCarpeta,Int32.Parse(Session["ID"].ToString()));
                 
-                return View();
+                return View(lista);
             }
             else
             {
@@ -40,6 +43,7 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
+                
                 ViewBag.carpetas = carpetaRepository.BuscarCarpetasMenosGeneral(Int32.Parse(Session["ID"].ToString()));
                 return View();
             }
@@ -60,8 +64,11 @@ namespace TpPwIII.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //  tar.EstimadoHoras = 2.5M;
-                    tar.EstimadoHoras = Convert.ToDecimal(form["EstimadoHoras"]);
+                    CultureInfo culture = new CultureInfo("en-US");
+
+                    if (Request["EstimadoHoras"] != "") { 
+                        tar.EstimadoHoras=Convert.ToDecimal(Request["EstimadoHoras"],culture);
+                    }
 
                     if (form["Carpeta"] == "0") { 
                         tar.IdCarpeta = 1;
@@ -88,7 +95,7 @@ namespace TpPwIII.Controllers
                 else
                 {
                     ViewBag.estado = "Tarea NO registrada";
-                    return View("Home","Usuario");
+                    return RedirectToAction("Home","Usuario");
                 }
             }
             else
@@ -101,9 +108,10 @@ namespace TpPwIII.Controllers
 
         public ActionResult MisTareas()
         {
-            if (sv.ValidarSesion() == true) { 
-                ViewBag.tareas = tareaRepository.ListarTareas(Int32.Parse(Session["ID"].ToString()));
-                return View();
+            if (sv.ValidarSesion() == true) {
+
+                List<Tarea> lista = tareaRepository.ListarTareas(Int32.Parse(Session["ID"].ToString()));
+                return View(lista);
             }
             else
             {
@@ -121,9 +129,9 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.ListarTareasCompletadas(Int32.Parse(Session["ID"].ToString()));
+                List<Tarea> lista = tareaRepository.ListarTareasCompletadas(Int32.Parse(Session["ID"].ToString()));
 
-                return View("MisTareas");
+                return View("MisTareas", lista);
             }
             else
             {
@@ -140,9 +148,9 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.ListarTareasIncompletas(Int32.Parse(Session["ID"].ToString()));
+                List<Tarea> lista = tareaRepository.ListarTareasIncompletas(Int32.Parse(Session["ID"].ToString()));
 
-                return View("MisTareas");
+                return View("MisTareas", lista);
             }
             else
             {
@@ -172,6 +180,7 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
+       
                 ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
                 ViewBag.comentarios = comentarioRepository.BuscarComentarios(idTarea);
                 ViewBag.archivos = archivoRepository.BuscarArchivos(idTarea);
@@ -246,7 +255,7 @@ namespace TpPwIII.Controllers
                 {
                     //  tar.EstimadoHoras = 2.5M;
                     tar.EstimadoHoras = Convert.ToDecimal(form["EstimadoHoras"]);
-                    tar.IdCarpeta = Int32.Parse(form["Carpeta"].ToString());
+                    tar.IdCarpeta = Int32.Parse(form["Carpeta"]);
                     tar.FechaCreacion = DateTime.Now;
                     tar.IdUsuario = Int32.Parse(Session["ID"].ToString());
                     tar.Completada = 0;

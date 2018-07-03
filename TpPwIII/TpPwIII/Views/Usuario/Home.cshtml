@@ -1,4 +1,5 @@
 ﻿@using TpPwIII.Models
+@model List<TareaHomeViewModel>
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -42,7 +43,7 @@
     </thead>
     <tbody>
 
-        @foreach (TareaHomeViewModel tar in ViewBag.Tareas)
+        @foreach (TareaHomeViewModel tar in Model)
         {
             <tr>
                 <th>
@@ -63,7 +64,8 @@
                     else if (tar.Prioridad == 3)
                     {
                         <h4 class="yellow-text">Media</h4>
-                    }else if (tar.Prioridad == 4)
+                    }
+                    else if (tar.Prioridad == 4)
                     {
                         <h4 class="green-text">Baja</h4>
                     }

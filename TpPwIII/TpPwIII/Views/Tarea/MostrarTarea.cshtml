@@ -1,4 +1,6 @@
-﻿@model Tarea
+﻿@using TpPwIII
+@model List<Tarea>
+
 @{
     ViewBag.Title = "MostrarTarea";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -26,7 +28,7 @@
     <tbody>
 
         
-        @foreach (Tarea tarea in ViewBag.tareas)
+        @foreach (Tarea tarea in Model)
         {
             <tr>
                 <td>

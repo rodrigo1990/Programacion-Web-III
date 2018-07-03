@@ -1,0 +1,8 @@
+﻿<select name="carpeta" id="carpeta" class="form-control input-center">
+    <option value="0">Seleccione una carpeta</option>
+    @foreach (Carpeta carpeta in Model)
+    {
+        <option value=@carpeta.IdCarpeta>@carpeta.Nombre</option>
+    }
+</select>
+

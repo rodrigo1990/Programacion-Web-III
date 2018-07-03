@@ -51,8 +51,8 @@ namespace TpPwIII.Controllers
             bool estado = sv.ValidarSesion();
             if (sv.ValidarSesion() == true)
             {
-                ViewBag.tareas = tareaRepository.ListarTareasConCarpeta(Int32.Parse(Session["ID"].ToString()));
-                return View();
+                List<TareaHomeViewModel> lista = tareaRepository.ListarTareasConCarpeta(Int32.Parse(Session["ID"].ToString()));
+                return View(lista);
             }
             else
             {

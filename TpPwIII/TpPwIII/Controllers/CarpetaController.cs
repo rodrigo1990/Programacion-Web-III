@@ -19,9 +19,10 @@ namespace TpPwIII.Controllers
 
             if(sv.ValidarSesion() == true)
             {
-                ViewBag.carpetas = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
 
-                return View();
+                List<Carpeta> lista = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
+
+                return View(lista);
             }
             else
             {

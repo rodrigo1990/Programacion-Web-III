@@ -1,4 +1,5 @@
-﻿@model Tarea
+﻿@using TpPwIII
+@model Tarea
 @{
     ViewBag.Title = "CrearForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -25,7 +26,7 @@
         @Html.TextBoxFor(model => model.FechaFin, new { @type = "date", @class = "form-control input-center", @placeholder = "Fecha de finalizacion" })
         <br />
         @Html.LabelFor(model=>model.EstimadoHoras,"Horas estimadas")
-        @Html.TextBoxFor(model => model.EstimadoHoras, new { @type = "number", @step = "1", @class = "form-control input-center", @placeholder = "1.00" })
+        @Html.TextBoxFor(model => model.EstimadoHoras, new {  @class = "form-control input-center", @placeholder = "1.00" })
         @Html.ValidationMessageFor(model => model.EstimadoHoras, "", new { @class = "text-danger" })
         <br />
         @{
@@ -66,7 +67,7 @@
 
         <br />
 
-        <button class="btn btn-primary button-form-modal">Crear carpeta</button>
+        <button class="btn btn-primary button-form-modal">Crear Tarea</button>
 
     </div>
 
