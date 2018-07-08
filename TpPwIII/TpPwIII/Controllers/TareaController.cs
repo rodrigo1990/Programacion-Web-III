@@ -181,11 +181,19 @@ namespace TpPwIII.Controllers
             if (sv.ValidarSesion() == true)
             {
        
-                ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
+                ViewBag.tarea = tareaRepository.ListarTarea(idTarea, Int32.Parse(Session["ID"].ToString()));
                 ViewBag.comentarios = comentarioRepository.BuscarComentarios(idTarea);
                 ViewBag.archivos = archivoRepository.BuscarArchivos(idTarea);
-                return View();
 
+                if(ViewBag.tarea != null) { 
+
+                    return View();
+
+                }
+                else
+                {
+                    return RedirectToAction("Home", "Usuario");
+                }
             }
             else
             {
@@ -203,7 +211,7 @@ namespace TpPwIII.Controllers
         {
             if (sv.ValidarSesion() == true)
             {
-                Tarea tarea = tareaRepository.ListarTarea(idTarea);
+                Tarea tarea = tareaRepository.ListarTarea(idTarea, Int32.Parse(Session["ID"].ToString()));
 
                 tareaRepository.EliminarTarea(tarea);
 
@@ -225,7 +233,7 @@ namespace TpPwIII.Controllers
             if (sv.ValidarSesion() == true)
             {
                 ViewBag.carpetas = carpetaRepository.BuscarCarpetas(Int32.Parse(Session["ID"].ToString()));
-                ViewBag.tarea = tareaRepository.ListarTarea(idTarea);
+                ViewBag.tarea = tareaRepository.ListarTarea(idTarea, Int32.Parse(Session["ID"].ToString()));
                 ViewBag.FechaFin = ViewBag.tarea.FechaFin.ToString("yyyy-MM-dd");
                 ViewBag.EstimadoHoras = System.Convert.ToString(ViewBag.tarea.EstimadoHoras);
                 ViewBag.EstimadoHoras = ViewBag.EstimadoHoras.Replace(",", ".");

@@ -120,10 +120,10 @@ namespace TpPwIII.Models
             ctx.SaveChanges();
         }
 
-        public Tarea ListarTarea(int idTarea)
+        public Tarea ListarTarea(int idTarea, int idUsuario)
         {
             Tarea tarea = new Tarea();
-            tarea = ctx.Tareas.Find(idTarea);
+            tarea = ctx.Tareas.Where(o=>o.IdTarea==idTarea).Where(o=>o.IdUsuario==idUsuario).FirstOrDefault();
 
             return tarea;
         }
